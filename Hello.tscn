@@ -3,7 +3,7 @@
 [node name="Label" type="Label"]
 margin_right = 40.0
 margin_bottom = 14.0
-text = "Hello World"
+text = "GAME ONE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
