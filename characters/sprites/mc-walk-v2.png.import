@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/mc-walk-v2.png-65786c54b3af48ef4a531b826a4ba710.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
+source_file="res://characters/sprites/mc-walk-v2.png"
+dest_files=[ "res://.import/mc-walk-v2.png-65786c54b3af48ef4a531b826a4ba710.stex" ]
 
 [params]
 
