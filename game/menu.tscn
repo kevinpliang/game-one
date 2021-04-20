@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/Mademoiselle.tres" type="DynamicFont" id=1]
+[ext_resource path="res://game/Mademoiselle48.tres" type="DynamicFont" id=2]
+
+[node name="MainMenu" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 384.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 0, 108 )
+
+[node name="Title" type="Label" parent="CenterContainer"]
+margin_left = 111.0
+margin_top = 30.0
+margin_right = 273.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 2 )
+text = "For Me"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+margin_top = 112.0
+margin_right = 384.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 108 )
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer2"]
+margin_right = 384.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer2/TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Start[/center]"
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton3" type="TextureButton" parent="VBoxContainer2"]
+margin_top = 24.0
+margin_right = 384.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer2/TextureButton3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Quit[/center]"
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
