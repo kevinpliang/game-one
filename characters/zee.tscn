@@ -46,7 +46,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 3.91011
+radius = 4.0
 
 [node name="ZeeBody" type="KinematicBody2D"]
 position = Vector2( 191.946, 89.8444 )
@@ -59,26 +59,21 @@ __meta__ = {
 [node name="ZeeSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 8 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
-
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2( -0.541504, 5.57949 )
-shape = SubResource( 9 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="fireRate" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="hurtbox" type="Area2D" parent="."]
+scale = Vector2( 1.00479, 1 )
 
-[node name="ActualHurtbox" type="CollisionShape2D" parent="Area2D"]
+[node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2( -0.541504, 5.57949 )
 shape = SubResource( 9 )
 __meta__ = {
 "_edit_group_": true
 }
 [connection signal="timeout" from="fireRate" to="." method="_on_fireRate_timeout"]
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

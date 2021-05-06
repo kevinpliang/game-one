@@ -10,6 +10,7 @@ var vel = Vector2(0, 0)
 
 # fire rate
 var can_shoot = true
+var dead = false
 
 func _ready():
 	Global.player = self
@@ -23,9 +24,14 @@ func _physics_process(delta):
 	vel.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	vel.y = (int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))) / float(2)
 	
+	# set boundaries
+	global_position.x = clamp(global_position.x, 60, 317)
+	global_position.y = clamp(global_position.y, 35, 150)
+	
 	# calculate motion (normalized)
-	var motion = vel.normalized() * speed
-	move_and_slide(motion)
+	if !dead:
+		var motion = vel.normalized() * speed
+		move_and_slide(motion)
 
 func _process(delta):
 	if vel[0] > 0:
@@ -41,10 +47,18 @@ func _process(delta):
 	else:		
 		zee_sprite.play("idle")
 	
-	if can_shoot and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
+	if can_shoot and !dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
+		print(get_viewport().get_mouse_position())
 		Global.instance_node(bullet, global_position, Global.node_creation_parent)
 		$fireRate.start()
 		can_shoot = false
 
 func _on_fireRate_timeout():
 	 can_shoot = true
+	
+func _on_hurtbox_area_entered(area):
+	if area.is_in_group("enemy"):
+		dead = true
+		yield(get_tree().create_timer(2), "timeout")
+		visible = false
+		get_tree().reload_current_scene()

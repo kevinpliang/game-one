@@ -8,6 +8,7 @@ onready var enemy1 = preload("res://characters/enemy1.tscn")
 
 func _ready():
 	Global.node_creation_parent = self
+	Global.score = 0
 	# load in scenes
 	var menu = main_menu.instance()
 	var island_bg = island_scene.instance()
@@ -23,6 +24,7 @@ func _exit_tree():
 
 func _on_enemySpawnTimer_timeout():
 	var enemy_pos = Vector2(rand_range(10, 374), rand_range(10,206))
-	while (enemy_pos.x > 100 and enemy_pos.x < 200) and (enemy_pos.y > 40 and enemy_pos.y < 160):
+	while (enemy_pos.x > 40 and enemy_pos.x < 330) and (enemy_pos.y > 25 and enemy_pos.y < 170):
 		enemy_pos = Vector2(rand_range(10, 374), rand_range(10,206))
 	Global.instance_node(enemy1, enemy_pos, self)
+	$enemySpawnTimer.wait_time *= 0.95

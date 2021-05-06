@@ -66,9 +66,12 @@ script = ExtResource( 3 )
 modulate = Color( 0, 0.345098, 1, 1 )
 frames = SubResource( 9 )
 animation = "hurt"
+frame = 1
 playing = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=[
+"enemy",
+]]
 
 [node name="Hurtbox" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -0.451866, 2.94254 )

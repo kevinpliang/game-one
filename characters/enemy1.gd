@@ -15,6 +15,7 @@ func _ready():
 	sprite.play("idle")
  
 func _physics_process(delta):
+	# moves towards player
 	if Global.player != null and !stun:
 		vel = global_position.direction_to(Global.player.global_position)
 	# calculate motion (normalized)
@@ -22,13 +23,18 @@ func _physics_process(delta):
 	move_and_slide(motion)
 
 func _process(delta):
+	# when it dies
 	if hp <= 0:
 		sprite.play("hurt")
+		# blood spatter
 		if Global.node_creation_parent != null:
 			var blood_instance = Global.instance_node(blood, global_position, Global.node_creation_parent)
-			blood_instance.rotation = vel.angle()
+			blood_instance.rotation = vel.angle()		
+			
+		# score increase
 		Global.score += 10
 		queue_free()
+	# animation
 	if stun:
 		sprite.play("hurt")
 	elif vel[0] > 0:
@@ -43,6 +49,7 @@ func _process(delta):
 		sprite.play("idle")
 
 func _on_Area2D_area_entered(area):
+	# if contacted with bullet
 	if area.is_in_group("enemy_damager"):
 		$hitstun.start()
 		sprite.play("hurt")
