@@ -11,6 +11,7 @@ a = Vector2( 55.4568, 38.5357 )
 b = Vector2( 55.4568, 163.862 )
 
 [node name="Node2D" type="StaticBody2D"]
+z_index = -5
 
 [node name="island" type="Sprite" parent="."]
 position = Vector2( 192, 108 )
