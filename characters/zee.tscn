@@ -33,57 +33,57 @@ region = Rect2( 64, 0, 32, 32 )
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 40, 32 )
+region = Rect2( 0, 0, 48, 32 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 4 )
-region = Rect2( 40, 0, 40, 32 )
+region = Rect2( 48, 0, 48, 32 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 4 )
-region = Rect2( 80, 0, 40, 32 )
+region = Rect2( 96, 0, 48, 32 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 4 )
-region = Rect2( 120, 0, 40, 32 )
+region = Rect2( 144, 0, 48, 32 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 4 )
-region = Rect2( 160, 0, 40, 32 )
+region = Rect2( 192, 0, 48, 32 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 4 )
-region = Rect2( 200, 0, 40, 32 )
+region = Rect2( 240, 0, 48, 32 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 4 )
-region = Rect2( 240, 0, 40, 32 )
+region = Rect2( 288, 0, 48, 32 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 4 )
-region = Rect2( 280, 0, 40, 32 )
+region = Rect2( 336, 0, 48, 32 )
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="SpriteFrames" id=16]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "idle",
-"speed": 4.0
+"speed": 5.75
 }, {
 "frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "walk",
 "speed": 8.0
 }, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
 "loop": false,
 "name": "death",
 "speed": 8.0
 } ]
 
-[sub_resource type="CircleShape2D" id=9]
+[sub_resource type="CircleShape2D" id=17]
 radius = 4.0
 
 [node name="ZeeBody" type="KinematicBody2D"]
@@ -96,7 +96,7 @@ __meta__ = {
 }
 
 [node name="ZeeSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 8 )
+frames = SubResource( 16 )
 animation = "death"
 frame = 7
 playing = true
@@ -112,7 +112,7 @@ scale = Vector2( 1.00479, 1 )
 
 [node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2( -0.541504, 5.57949 )
-shape = SubResource( 9 )
+shape = SubResource( 17 )
 __meta__ = {
 "_edit_group_": true
 }
