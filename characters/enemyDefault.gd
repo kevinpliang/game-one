@@ -62,11 +62,11 @@ func basic_process(delta):
 func _on_Area2D_area_entered(area):
 	# if contacted with bullet
 	if area.is_in_group("enemy_damager"):
+		stun = true
 		$hitstun.start()
 		sprite.play("hurt")
 		modulate = Color(3,3,3)
 		hp -= 10
-		stun = true
 		vel *= -4
 		area.get_parent().queue_free()
 

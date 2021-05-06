@@ -11,12 +11,12 @@ var vel = Vector2(0, 0)
 # stuff
 var fire_rate = 0.5
 var can_shoot = true
-var dead = false
 
 signal okay
 
 func _ready():
 	Global.player = self
+	Global.dead = false
 	zee_sprite.play("idle")
 	
 func _exit_tree():
@@ -32,7 +32,7 @@ func _physics_process(delta):
 	global_position.y = clamp(global_position.y, 35, 150)
 	
 	# calculate motion (normalized)
-	if !dead:
+	if !Global.dead:
 		var motion = vel.normalized() * speed
 		move_and_slide(motion)
 
@@ -50,7 +50,7 @@ func _process(delta):
 	else:		
 		zee_sprite.play("idle")
 	
-	if can_shoot and !dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
+	if can_shoot and !Global.dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
 		# print(get_viewport().get_mouse_position())
 		Global.instance_node(bullet, global_position, Global.node_creation_parent)
 		$fireRate.start()
@@ -68,7 +68,7 @@ func _on_fireRate_timeout():
 # if you die
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("enemy"):
-		dead = true
+		Global.dead = true
 		visible = false
 		Global.save_game()
 		yield(self, "okay")

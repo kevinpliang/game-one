@@ -31,7 +31,6 @@ func _on_enemySpawnTimer_timeout():
 		enemy_pos = Vector2(rand_range(10, 374), rand_range(10,206))
 	
 	#randomize enemy
-	var enemyPicker = round(rand_range(0, enemies.size()-1))
-		
-	Global.instance_node(enemies[enemyPicker], enemy_pos, self)
+	var enemyPicker = round(rand_range(0, enemies.size()-1))		
+	var enemy = Global.instance_node(enemies[enemyPicker], enemy_pos, self)
 	$enemySpawnTimer.wait_time *= 0.95
