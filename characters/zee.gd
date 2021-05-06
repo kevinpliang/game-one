@@ -68,7 +68,9 @@ func _on_fireRate_timeout():
 	
 # if you die
 func _on_hurtbox_area_entered(area):
-	if area.is_in_group("enemy"):
+	if area.is_in_group("enemy") or area.is_in_group("player_damager"):
+		if area.is_in_group("player_damager"):
+			area.get_parent().queue_free()
 		Global.dead = true
 		zee_sprite.play("death")
 		Global.save_game()

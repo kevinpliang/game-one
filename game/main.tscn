@@ -7,7 +7,7 @@
 [ext_resource path="res://game/HighScore.gd" type="Script" id=5]
 [ext_resource path="res://characters/enemy1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://characters/enemy2.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game/sounds/main-theme-A_Bit_Of_Hope_-_David_Fesliyan.ogg" type="AudioStream" id=8]
+[ext_resource path="res://game/sounds/toadv2.ogg" type="AudioStream" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
@@ -63,7 +63,7 @@ script = ExtResource( 4 )
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -15.0
+volume_db = -10.0
 autoplay = true
 [connection signal="timeout" from="enemySpawnTimer" to="." method="_on_enemySpawnTimer_timeout"]
 [connection signal="timeout" from="Camera2D/shakeTime" to="Camera2D" method="_on_shakeTime_timeout"]
