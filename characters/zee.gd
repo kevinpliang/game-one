@@ -10,9 +10,10 @@ var vel = Vector2(0, 0)
 
 # stuff
 var fire_rate = 0.5
-
 var can_shoot = true
 var dead = false
+
+signal okay
 
 func _ready():
 	Global.player = self
@@ -55,13 +56,20 @@ func _process(delta):
 		$fireRate.start()
 		can_shoot = false
 
+# for restart
+func _input(event):
+	if(Input.is_action_pressed("ui_accept")):
+		emit_signal("okay")
+
 func _on_fireRate_timeout():
 	can_shoot = true
 	$fireRate.wait_time = fire_rate
 	
+# if you die
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("enemy"):
 		dead = true
-		yield(get_tree().create_timer(2), "timeout")
 		visible = false
+		Global.save_game()
+		yield(self, "okay")
 		get_tree().reload_current_scene()

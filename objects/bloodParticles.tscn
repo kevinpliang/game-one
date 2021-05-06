@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/sprites/blood.png" type="Texture" id=1]
 [ext_resource path="res://objects/bloodParticles.gd" type="Script" id=2]
+[ext_resource path="res://objects/blood.gd" type="Script" id=3]
 
-[node name="bloodParticles" type="CPUParticles2D"]
+[node name="blood" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="particles" type="CPUParticles2D" parent="."]
 position = Vector2( 1, 0 )
 z_index = -1
 amount = 15
@@ -17,8 +21,12 @@ initial_velocity_random = 1.0
 scale_amount_random = 1.0
 script = ExtResource( 2 )
 
-[node name="freezeBlood" type="Timer" parent="."]
+[node name="freezeBlood" type="Timer" parent="particles"]
 wait_time = 0.15
 one_shot = true
 autostart = true
-[connection signal="timeout" from="freezeBlood" to="." method="_on_freezeBlood_timeout"]
+
+[node name="fadeOut" type="Timer" parent="."]
+wait_time = 10.0
+[connection signal="timeout" from="particles/freezeBlood" to="particles" method="_on_freezeBlood_timeout"]
+[connection signal="timeout" from="fadeOut" to="." method="_on_fadeOut_timeout"]
