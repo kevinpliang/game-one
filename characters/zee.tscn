@@ -59,14 +59,16 @@ __meta__ = {
 [node name="ZeeSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 8 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="fireRate" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.5
 one_shot = true
 
-[node name="hurtbox" type="Area2D" parent="."]
+[node name="hurtbox" type="Area2D" parent="." groups=[
+"player",
+]]
 scale = Vector2( 1.00479, 1 )
 
 [node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]

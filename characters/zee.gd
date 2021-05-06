@@ -8,7 +8,9 @@ var bullet = preload("res://objects/Bullet.tscn")
 export var speed = 75
 var vel = Vector2(0, 0)
 
-# fire rate
+# stuff
+var fire_rate = 0.5
+
 var can_shoot = true
 var dead = false
 
@@ -48,13 +50,14 @@ func _process(delta):
 		zee_sprite.play("idle")
 	
 	if can_shoot and !dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
-		print(get_viewport().get_mouse_position())
+		# print(get_viewport().get_mouse_position())
 		Global.instance_node(bullet, global_position, Global.node_creation_parent)
 		$fireRate.start()
 		can_shoot = false
 
 func _on_fireRate_timeout():
-	 can_shoot = true
+	can_shoot = true
+	$fireRate.wait_time = fire_rate
 	
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("enemy"):
