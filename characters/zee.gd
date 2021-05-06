@@ -37,18 +37,19 @@ func _physics_process(delta):
 		move_and_slide(motion)
 
 func _process(delta):
-	if vel[0] > 0:
-		$ZeeSprite.flip_h = false
-		zee_sprite.play("walk")
-	elif vel[0] < 0:
-		$ZeeSprite.flip_h = true
-		zee_sprite.play("walk")
-	elif vel[1] < 0:
-		zee_sprite.play("walk")
-	elif vel[1] > 0:
-		zee_sprite.play("walk")
-	else:		
-		zee_sprite.play("idle")
+	if !Global.dead:
+		if vel[0] > 0:
+			$ZeeSprite.flip_h = false
+			zee_sprite.play("walk")
+		elif vel[0] < 0:
+			$ZeeSprite.flip_h = true
+			zee_sprite.play("walk")
+		elif vel[1] < 0:
+			zee_sprite.play("walk")
+		elif vel[1] > 0:
+			zee_sprite.play("walk")
+		else:		
+			zee_sprite.play("idle")
 	
 	if can_shoot and !Global.dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
 		# print(get_viewport().get_mouse_position())
@@ -69,7 +70,7 @@ func _on_fireRate_timeout():
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("enemy"):
 		Global.dead = true
-		visible = false
+		zee_sprite.play("death")
 		Global.save_game()
 		yield(self, "okay")
 		get_tree().reload_current_scene()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://characters/enemyDefault.gd" type="Script" id=1]
 [ext_resource path="res://characters/sprites/mc-idle-v2.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://characters/sprites/mc-hurt.png" type="Texture" id=4]
 [ext_resource path="res://objects/up_fireRate.tscn" type="PackedScene" id=5]
 [ext_resource path="res://characters/sprites/enemy-spawn.png" type="Texture" id=6]
+[ext_resource path="res://game/sounds/enemy-death.ogg" type="AudioStream" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -93,7 +94,7 @@ animations = [ {
 "speed": 4.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
+"loop": false,
 "name": "spawn",
 "speed": 10.0
 } ]
@@ -110,7 +111,7 @@ drops = [ ExtResource( 5 ) ]
 modulate = Color( 0, 0.345098, 1, 1 )
 frames = SubResource( 9 )
 animation = "spawn"
-frame = 4
+frame = 8
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -125,3 +126,11 @@ wait_time = 0.15
 
 [node name="pause" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="hitsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -10.0
+
+[node name="deathsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -20.0

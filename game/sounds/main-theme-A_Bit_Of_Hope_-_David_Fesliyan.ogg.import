@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/main-theme-A_Bit_Of_Hope_-_David_Fesliyan.ogg-59485b5ab574b284a8b6ce9cc1ce1348.oggstr"
+
+[deps]
+
+source_file="res://game/sounds/main-theme-A_Bit_Of_Hope_-_David_Fesliyan.ogg"
+dest_files=[ "res://.import/main-theme-A_Bit_Of_Hope_-_David_Fesliyan.ogg-59485b5ab574b284a8b6ce9cc1ce1348.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

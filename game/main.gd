@@ -12,6 +12,10 @@ export(Array, PackedScene) var enemies
 func _ready():
 	Global.node_creation_parent = self
 	Global.score = 0
+		
+	#music 
+	$music.play()
+	
 	# load in scenes
 	var menu = main_menu.instance()
 	var island_bg = island_scene.instance()
@@ -23,6 +27,7 @@ func _ready():
 	# add_child(menu)
 	
 func _exit_tree():
+	$music.stop()
 	Global.node_creation_parent = null
 
 func _on_enemySpawnTimer_timeout():

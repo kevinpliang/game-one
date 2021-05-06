@@ -6,6 +6,7 @@ onready var current_color = sprite.modulate
 var blood = preload("res://objects/bloodParticles.tscn")
 
 # enemy speed and velocity vector
+var alive = true
 export(int) var speed = 70
 var vel = Vector2(0, 0)
 
@@ -27,8 +28,12 @@ func basic_movement(delta):
 	
 func basic_process(delta):
 	# when it dies
-	if hp <= 0:
+	if hp <= 0 and alive:
+		visible = false
+		alive = false
 		sprite.play("hurt")
+		print("sup")
+		$deathsound.play()
 		if(global_position.x > 60 and global_position.x < 317 and global_position.y > 35 and global_position.y <150):
 			# blood spatter
 			if Global.node_creation_parent != null:
@@ -43,6 +48,7 @@ func basic_process(delta):
 		
 		# score increase
 		Global.score += scoreValue
+		yield($deathsound, "finished")
 		queue_free()
 	# animation
 	if stun:
@@ -62,6 +68,7 @@ func basic_process(delta):
 func _on_Area2D_area_entered(area):
 	# if contacted with bullet
 	if area.is_in_group("enemy_damager"):
+		$hitsound.play()
 		stun = true
 		$hitstun.start()
 		sprite.play("hurt")
