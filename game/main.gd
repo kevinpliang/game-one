@@ -44,14 +44,14 @@ func _process(_delta):
 		$music.stop()
 		yield(get_tree().create_timer(1), "timeout")
 		$queen.play()
-		yield(get_tree().create_timer(8), "timeout")
+		yield(get_tree().create_timer(7.5), "timeout")
 		initiateBoss()
 	if Global.win:
 		print("You won!")
 		get_tree().quit()
 
 func initiateBoss():
-	var center = Vector2(192, 108)
+	var center = Vector2(0,0)
 	var boss = Global.instance_node(boss_sprite,  center, self)
 
 func _on_enemySpawnTimer_timeout():

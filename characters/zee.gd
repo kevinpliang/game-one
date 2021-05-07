@@ -72,8 +72,8 @@ func _on_hurtbox_area_entered(area):
 		if area.is_in_group("player_damager"):
 			area.get_parent().queue_free()
 		Global.dead = true
-		Global.boss = false;
 		zee_sprite.play("death")
 		Global.save_game()
 		yield(self, "okay")
+		Global.boss = false;
 		get_tree().reload_current_scene()
