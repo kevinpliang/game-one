@@ -1,13 +1,16 @@
 extends Camera2D
 
-var screen_shake_start = false
-var shake_intensity = 0
+onready var flash = $flash_sprite
+onready var tween = $tween
 
-func _read():
+var strength = 0.15
+var speed = 0.25
+
+func _ready():
 	Global.camera = self
 	
 func _exit_tree():
 	Global.camera = null
-	
+
 func _process(delta):
 	pass

@@ -1,9 +1,11 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://characters/sprites/mc-idle-v2.png" type="Texture" id=1]
 [ext_resource path="res://characters/sprites/mc-walk-v2.png" type="Texture" id=2]
 [ext_resource path="res://characters/zee.gd" type="Script" id=3]
 [ext_resource path="res://characters/sprites/mc-death.png" type="Texture" id=4]
+[ext_resource path="res://objects/smokeFX.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game/sounds/enemy-death.ogg" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -86,19 +88,54 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=17]
 radius = 4.0
 
+[sub_resource type="Animation" id=18]
+resource_name = "death"
+step = 0.063
+tracks/0/type = "method"
+tracks/0/path = NodePath("ZeeSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.063 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop"
+}, {
+"args": [ "death", false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("smokeFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0.063 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "wide-2", false ],
+"method": "play"
+} ]
+}
+
 [node name="ZeeBody" type="KinematicBody2D"]
 position = Vector2( 191.946, 89.8444 )
 z_index = 1
 script = ExtResource( 3 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_lock_": true
 }
 
 [node name="ZeeSprite" type="AnimatedSprite" parent="."]
+z_index = 2
 frames = SubResource( 16 )
-animation = "death"
-frame = 7
+animation = "idle"
+frame = 1
 playing = true
 
 [node name="fireRate" type="Timer" parent="."]
@@ -117,5 +154,18 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="animations" type="AnimationPlayer" parent="."]
+anims/death = SubResource( 18 )
+
+[node name="smokeFX" parent="." instance=ExtResource( 5 )]
+position = Vector2( -1.18919, 4.48668 )
+animation = "default"
+frame = 0
+
+[node name="deathsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -10.0
+
 [connection signal="timeout" from="fireRate" to="." method="_on_fireRate_timeout"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="animation_finished" from="animations" to="." method="_on_animations_animation_finished"]

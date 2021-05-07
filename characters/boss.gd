@@ -13,7 +13,7 @@ var vel = Vector2(0, 0)
 
 var stationary = false;
 
-export(int) var hp = 100
+export(int) var hp = 1000
 export(int) var scoreValue = 0
 
 #powerups
@@ -37,6 +37,8 @@ func _physics_process(delta):
 		move_and_slide(motion)
 	
 func _process(delta):
+	if hp <= 500:
+		pass
 	# death
 	if hp <= 0 and alive:
 		visible = false

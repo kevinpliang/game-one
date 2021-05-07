@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # 2D sprite
 onready var zee_sprite = $ZeeSprite
+onready var animations = $animations
 var bullet = preload("res://objects/Bullet.tscn")
 
 # player speed and velocity vector
@@ -72,8 +73,15 @@ func _on_hurtbox_area_entered(area):
 		if area.is_in_group("player_damager"):
 			area.get_parent().queue_free()
 		Global.dead = true
-		zee_sprite.play("death")
-		Global.save_game()
+		$hurtbox.queue_free()
+		$deathsound.play()
+		animations.play("death")
+		Global.save_game()		
+		# restart 
 		yield(self, "okay")
 		Global.boss = false;
 		get_tree().reload_current_scene()
+
+func _on_animations_animation_finished(anim_name):
+	if(anim_name == "death"):
+		animations.stop()

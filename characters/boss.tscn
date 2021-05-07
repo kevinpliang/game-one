@@ -1,11 +1,11 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://characters/sprites/jgou-idle.png" type="Texture" id=1]
 [ext_resource path="res://characters/boss.gd" type="Script" id=2]
 [ext_resource path="res://game/sounds/hit-sound.ogg" type="AudioStream" id=3]
 [ext_resource path="res://game/sounds/enemy-death.ogg" type="AudioStream" id=4]
 [ext_resource path="res://characters/sprites/jgou-walk.png" type="Texture" id=5]
-[ext_resource path="res://objects/sprites/smoke-fx-wide.png" type="Texture" id=6]
+[ext_resource path="res://objects/smokeFX.tscn" type="PackedScene" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -104,133 +104,8 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 }
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 6 )
-region = Rect2( 128, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 6 )
-region = Rect2( 256, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 6 )
-region = Rect2( 384, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 6 )
-region = Rect2( 512, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 6 )
-region = Rect2( 640, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 6 )
-region = Rect2( 768, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 6 )
-region = Rect2( 896, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 6 )
-region = Rect2( 1024, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 6 )
-region = Rect2( 1152, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 6 )
-region = Rect2( 1280, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 6 )
-region = Rect2( 1408, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 6 )
-region = Rect2( 1536, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 6 )
-region = Rect2( 1664, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 6 )
-region = Rect2( 1792, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 6 )
-region = Rect2( 1920, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 6 )
-region = Rect2( 2048, 0, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 6 )
-region = Rect2( 128, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 6 )
-region = Rect2( 256, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 6 )
-region = Rect2( 384, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 6 )
-region = Rect2( 512, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 6 )
-region = Rect2( 640, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 6 )
-region = Rect2( 768, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 6 )
-region = Rect2( 896, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 6 )
-region = Rect2( 1024, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 6 )
-region = Rect2( 1152, 64, 128, 64 )
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 6 )
-region = Rect2( 1280, 64, 128, 64 )
-
-[sub_resource type="SpriteFrames" id=45]
-animations = [ {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
-"loop": false,
-"name": "wide-1",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ) ],
-"loop": false,
-"name": "wide-2",
-"speed": 20.0
-} ]
-
 [node name="JUSTIN" type="KinematicBody2D"]
-position = Vector2( 184, 120 )
+position = Vector2( 184, 0 )
 z_index = 2
 script = ExtResource( 2 )
 
@@ -262,13 +137,8 @@ wait_time = 0.25
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/entrance = SubResource( 16 )
 
-[node name="smokeFX" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -8 )
-frames = SubResource( 45 )
-animation = "wide-2"
-frame = 10
+[node name="smokeFX" parent="." instance=ExtResource( 6 )]
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="hitstun" to="." method="_on_hitstun_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="smokeFX" to="." method="_on_smokeFX_animation_finished"]
