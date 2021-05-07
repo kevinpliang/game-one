@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # 2D sprite
 onready var sprite = $AnimatedSprite
+onready var player = $AnimationPlayer
 onready var current_color = sprite.modulate
 var blood = preload("res://objects/bloodParticles.tscn")
 
@@ -11,6 +12,7 @@ export(int) var speed = 70
 var vel = Vector2(0, 0)
 
 var stun = false;
+onready var spawning = true;
 
 export(int) var hp = 50
 export(int) var scoreValue = 10
@@ -18,13 +20,19 @@ export(int) var scoreValue = 10
 #powerups
 export(Array, PackedScene) var drops
 
+func _ready():
+	player.play("spawn")
+	yield(get_tree().create_timer(0.9), "timeout")
+	spawning = false
+
 func basic_movement(delta):
 	# moves towards player
-	if Global.player != null and !stun:
+	if Global.player != null:
 		vel = global_position.direction_to(Global.player.global_position)
 	# calculate motion (normalized)
-	var motion = vel.normalized() * speed
-	move_and_slide(motion)
+	if !stun and !spawning:
+		var motion = vel.normalized() * speed
+		move_and_slide(motion)
 	
 func basic_process(delta):
 	# when it dies
@@ -49,12 +57,19 @@ func basic_process(delta):
 		Global.score += scoreValue
 		yield($deathsound, "finished")
 		queue_free()
-	elif Global.boss:
+	elif Global.boss && !spawning:
+		spawning = true
+		sprite.play("hurt")
+		yield(get_tree().create_timer(1), "timeout")
+		sprite.play("spawn", true)
+		yield(get_tree().create_timer(0.9), "timeout")
 		queue_free()
 	# animation
 	if stun:
 		sprite.play("hurt")
 		global_position += vel * delta
+	elif spawning:
+		pass
 	elif vel[0] > 0:
 		$AnimatedSprite.flip_h = false
 		sprite.play("walk")
@@ -64,9 +79,7 @@ func basic_process(delta):
 	elif vel[1] != 0:
 		sprite.play("walk")
 	else:		
-		sprite.play("idle")
-	
-	
+		sprite.play("idle")	
 		
 func _on_Area2D_area_entered(area):
 	# if contacted with bullet

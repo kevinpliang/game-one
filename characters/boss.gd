@@ -22,7 +22,6 @@ export(Array, PackedScene) var drops
 func _ready():
 	stationary = true
 	sprite.play("idle")
-	print("sup")
 	player.play("entrance")
 
 func _on_AnimationPlayer_animation_finished(anim_name):

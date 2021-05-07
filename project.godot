@@ -39,6 +39,11 @@ window/stretch/aspect="keep"
 
 singletons=[  ]
 
+[global]
+
+OS.window=false
+window_maximized=false
+
 [importer_defaults]
 
 texture={
