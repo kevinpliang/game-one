@@ -71,7 +71,7 @@ func _on_fireRate_timeout():
 func _on_hurtbox_area_entered(area):
 	if area.is_in_group("enemy") or area.is_in_group("player_damager"):
 		if area.is_in_group("player_damager"):
-			area.get_parent().queue_free()
+			area.get_parent().visible = false
 		Global.dead = true
 		$hurtbox.queue_free()
 		$deathsound.play()

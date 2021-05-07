@@ -135,7 +135,6 @@ __meta__ = {
 z_index = 2
 frames = SubResource( 16 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="fireRate" type="Timer" parent="."]

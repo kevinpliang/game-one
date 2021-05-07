@@ -50,8 +50,9 @@ func basic_process(delta):
 				blood_instance.modulate = Color.from_hsv(current_color.h, 0.75, current_color.v)
 				blood_instance.rotation = vel.angle()
 			#drop
+			randomize()
 			var random = round(rand_range(0, 2))
-			if random == 0:
+			if random == 0 && scoreValue > 0:
 				var powerupPicker = round(rand_range(0, drops.size()-1))
 				Global.instance_node(drops[powerupPicker], global_position, Global.node_creation_parent)
 		
@@ -60,7 +61,7 @@ func basic_process(delta):
 		Global.score += scoreValue
 		yield($deathsound, "finished")
 		queue_free()
-	elif Global.boss && !spawning:
+	elif Global.boss && !spawning && scoreValue > 0:
 		spawning = true
 		sprite.play("hurt")
 		yield(get_tree().create_timer(1), "timeout")

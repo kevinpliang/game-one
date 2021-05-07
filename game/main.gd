@@ -11,7 +11,7 @@ onready var enemy1 = preload("res://characters/enemy1.tscn")
 export(Array, PackedScene) var enemies
 
 func _ready():
-	OS.window_maximized = true
+	# OS.window_maximized = true
 	
 	Global.node_creation_parent = self
 	Global.score = 0
@@ -39,7 +39,7 @@ func _process(_delta):
 	randomize()
 	if Global.boss:
 		$music.stop()
-	elif Global.score >= 200 and !Global.boss and !Global.dead:
+	elif Global.score >= 0 and !Global.boss and !Global.dead:
 		# start boss mode
 		print("boss mode!")
 		Global.boss = true

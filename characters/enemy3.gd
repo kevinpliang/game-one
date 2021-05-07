@@ -5,8 +5,8 @@ var bullet = preload("res://objects/enemyBullet.tscn")
 var freebullet = preload("res://objects/freeBullet.tscn")
 onready var rotater = $rotater
 
-var quickfire = 0.1
-var fire_rate = 3
+var quickfire = 0.25
+var fire_rate = 0
 var shots = 10
 var radius = 30
 var rotate_speed = 10
@@ -16,6 +16,7 @@ func _ready():
 	var step = 2*PI / shots
 	for i in range(shots):
 		var barrel = Node2D.new()
+		var pos = Vector2(radius,0).rotated(step*i)
 		barrel.position = global_position
 		barrel.rotation = global_position.angle()
 		rotater.add_child(barrel)
