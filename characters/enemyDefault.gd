@@ -11,8 +11,9 @@ var alive = true
 export(int) var speed = 85
 var vel = Vector2(0, 0)
 
-var stun = false;
 onready var spawning = true;
+var stun = false;
+var still = false;
 
 export(int) var hp = 50
 export(int) var scoreValue = 10
@@ -39,6 +40,7 @@ func basic_process(delta):
 	if hp <= 0 and alive:
 		visible = false
 		alive = false
+		$Area2D.queue_free()
 		sprite.play("hurt")
 		$deathsound.play()
 		if(global_position.x > 60 and global_position.x < 317 and global_position.y > 35 and global_position.y <150):
@@ -48,12 +50,13 @@ func basic_process(delta):
 				blood_instance.modulate = Color.from_hsv(current_color.h, 0.75, current_color.v)
 				blood_instance.rotation = vel.angle()
 			#drop
-			var random = round(rand_range(0, 3))
+			var random = round(rand_range(0, 2))
 			if random == 0:
 				var powerupPicker = round(rand_range(0, drops.size()-1))
 				Global.instance_node(drops[powerupPicker], global_position, Global.node_creation_parent)
 		
 		# score increase
+		Global.enemy_count -= 1
 		Global.score += scoreValue
 		yield($deathsound, "finished")
 		queue_free()
@@ -70,6 +73,8 @@ func basic_process(delta):
 		global_position += vel * delta
 	elif spawning:
 		pass
+	elif still:
+		sprite.play("idle")
 	elif vel[0] > 0:
 		$AnimatedSprite.flip_h = false
 		sprite.play("walk")

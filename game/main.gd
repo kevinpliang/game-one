@@ -58,7 +58,8 @@ func initiateBoss():
 	var boss = Global.instance_node(boss_sprite,  center, self)
 
 func _on_enemySpawnTimer_timeout():
-	if !Global.boss: # don't spawn lackeys if boss mode
+	randomize()
+	if !Global.boss and Global.enemy_count < 100: # don't spawn lackeys if boss mode
 		# don't spawn enemy on island
 		var enemy_pos = Vector2(rand_range(10, 374), rand_range(10,206))
 		while (enemy_pos.x > 40 and enemy_pos.x < 330) and (enemy_pos.y > 25 and enemy_pos.y < 170):
@@ -67,4 +68,5 @@ func _on_enemySpawnTimer_timeout():
 		#randomize enemy choice
 		var enemyPicker = round(rand_range(0, enemies.size()-1))		
 		var enemy = Global.instance_node(enemies[enemyPicker], enemy_pos, self)
-		$enemySpawnTimer.wait_time *= 0.95
+		Global.enemy_count += 1
+		$enemySpawnTimer.wait_time *= 0.93

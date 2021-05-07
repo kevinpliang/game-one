@@ -22,8 +22,10 @@ func _ready():
 
 func _physics_process(delta):
 	if(!shooting):
+		still = false
 		if(global_position.distance_to(Global.player.global_position) < 150 and global_position.x > 60 and global_position.x < 317 and global_position.y > 35 and global_position.y <150):
 			if !shooting and !stun:
+				still = true
 				shooting = true
 				shoot()	
 			speed = 0	
@@ -39,6 +41,7 @@ func shoot():
 		yield(get_tree().create_timer(quickfire), "timeout")
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	shooting = false
+	still = false
 
 func _process(delta):
 	var new_rotation = rotater.rotation_degrees + rotate_speed + delta
