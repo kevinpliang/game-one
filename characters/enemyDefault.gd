@@ -32,7 +32,6 @@ func basic_process(delta):
 		visible = false
 		alive = false
 		sprite.play("hurt")
-		print("sup")
 		$deathsound.play()
 		if(global_position.x > 60 and global_position.x < 317 and global_position.y > 35 and global_position.y <150):
 			# blood spatter
@@ -41,7 +40,7 @@ func basic_process(delta):
 				blood_instance.modulate = Color.from_hsv(current_color.h, 0.75, current_color.v)
 				blood_instance.rotation = vel.angle()
 			#drop
-			var random = round(rand_range(0, 4))
+			var random = round(rand_range(0, 3))
 			if random == 0:
 				var powerupPicker = round(rand_range(0, drops.size()-1))
 				Global.instance_node(drops[powerupPicker], global_position, Global.node_creation_parent)
@@ -49,6 +48,8 @@ func basic_process(delta):
 		# score increase
 		Global.score += scoreValue
 		yield($deathsound, "finished")
+		queue_free()
+	elif Global.boss:
 		queue_free()
 	# animation
 	if stun:
@@ -64,6 +65,8 @@ func basic_process(delta):
 		sprite.play("walk")
 	else:		
 		sprite.play("idle")
+	
+	
 		
 func _on_Area2D_area_entered(area):
 	# if contacted with bullet

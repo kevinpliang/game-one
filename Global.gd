@@ -4,9 +4,13 @@ var node_creation_parent = null
 var camera = null
 var player = null
 var dead = false
+var boss = false
 
-var highscore = 0;
-var score = 0;
+var boss_start_time = null
+
+var win = false
+var highscore = 0
+var score = 0
 
 func instance_node(node, location, parent):
 	var node_instance = node.instance()

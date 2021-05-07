@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/queenA.ogg-53b2be2260e6f73ad70e72b4ff359678.oggstr"
+
+[deps]
+
+source_file="res://game/sounds/queenA.ogg"
+dest_files=[ "res://.import/queenA.ogg-53b2be2260e6f73ad70e72b4ff359678.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

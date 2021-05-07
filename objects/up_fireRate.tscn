@@ -23,8 +23,6 @@ modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 113.791, 123.008 )
 frames = SubResource( 2 )
 script = ExtResource( 2 )
-variable = "fire_rate"
-powerup = 0.95
 
 [node name="hitbox" type="Area2D" parent="."]
 
@@ -34,4 +32,5 @@ shape = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
+
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
