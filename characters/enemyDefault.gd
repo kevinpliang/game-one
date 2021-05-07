@@ -8,7 +8,7 @@ var blood = preload("res://objects/bloodParticles.tscn")
 
 # enemy speed and velocity vector
 var alive = true
-export(int) var speed = 70
+export(int) var speed = 85
 var vel = Vector2(0, 0)
 
 var stun = false;

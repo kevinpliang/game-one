@@ -1,7 +1,7 @@
 extends AnimatedSprite
 
 var velocity = Vector2(1,0)
-var speed = 200
+var speed = 150
 
 # will only check player position once
 var look_once = true

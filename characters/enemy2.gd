@@ -1,9 +1,9 @@
 extends "res://characters/enemyDefault.gd"
 
 var shooting = false
-var default_speed = speed
 var bullet = preload("res://objects/enemyBullet.tscn")
 var fire_rate = 1
+onready var default_speed = speed
 
 func _physics_process(delta):
 	if(!shooting):
