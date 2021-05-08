@@ -5,6 +5,7 @@ var camera = null
 var player = null
 var dead = false
 var boss = false
+var boss_dead = false
 var enemy_count = 0
 
 var boss_start_time = null

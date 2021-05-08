@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/yong.ogg-b941de72a0296c00d8745e5e9e862868.oggstr"
+
+[deps]
+
+source_file="res://game/sounds/yong.ogg"
+dest_files=[ "res://.import/yong.ogg-b941de72a0296c00d8745e5e9e862868.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://game/main.gd" type="Script" id=1]
 [ext_resource path="res://game/HelvetiPixel.ttf" type="DynamicFontData" id=2]
@@ -11,8 +11,17 @@
 [ext_resource path="res://game/sounds/queenA.ogg" type="AudioStream" id=9]
 [ext_resource path="res://characters/enemy3.tscn" type="PackedScene" id=10]
 [ext_resource path="res://characters/enemy4.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game/Victory.gd" type="Script" id=12]
+[ext_resource path="res://game/Credits.gd" type="Script" id=13]
+[ext_resource path="res://game/sounds/yong.ogg" type="AudioStream" id=14]
 
 [sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 2 )
 
 [node name="main" type="Node"]
@@ -24,10 +33,11 @@ wait_time = 4.0
 autostart = true
 
 [node name="UI" type="Node2D" parent="."]
-z_index = 5
+z_index = 10
 
 [node name="Control" type="Control" parent="UI"]
-margin_right = 384.0
+margin_left = -0.420456
+margin_right = 383.58
 margin_bottom = 216.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -57,6 +67,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Victory" type="Label" parent="UI/Control"]
+margin_left = 0.420471
+margin_top = 64.023
+margin_right = 384.42
+margin_bottom = 106.023
+custom_fonts/font = SubResource( 2 )
+text = "You won!"
+align = 1
+valign = 1
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits" type="Label" parent="UI/Control"]
+margin_left = 61.3854
+margin_top = 131.18
+margin_right = 162.385
+margin_bottom = 162.18
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.258824, 0.643137, 0.34902, 1 )
+text = "Game: Kevin Liang
+Music: Rahil Shah"
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2( 192, 108 )
 current = true
@@ -71,6 +109,10 @@ autoplay = true
 
 [node name="queen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+volume_db = -10.0
+
+[node name="victory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
 volume_db = -10.0
 
 [connection signal="timeout" from="enemySpawnTimer" to="." method="_on_enemySpawnTimer_timeout"]

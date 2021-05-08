@@ -27,7 +27,7 @@ var stationary = false
 var scared = false
 var in_action = false
 
-export(int) var maxhp = 1000
+export(int) var maxhp = 800
 onready var hp = maxhp
 export(int) var scoreValue = 0
 
@@ -89,14 +89,15 @@ func attack_zero():
 	for i in 30:
 		randomize()
 		var random = round(rand_range(1,10))
-		if has_been_scared:
-			random = round(rand_range(1,8))
 		for s in rotater.get_children():
 			var bullet = Global.instance_node(freebullet, global_position, Global.node_creation_parent)
 			bullet.position = s.global_position
 			bullet.rotation = s.global_rotation
 		if random == 3:
-			for s in 7:
+			var chain = 3
+			if has_been_scared:
+				chain = 5
+			for s in chain:
 				var bullet = Global.instance_node(enemybullet, global_position, Global.node_creation_parent)
 				yield(get_tree().create_timer(0.05), "timeout")
 		yield(get_tree().create_timer(this_quickfire), "timeout")
@@ -162,25 +163,27 @@ func attack_runAway():
 	var quickfire = 0.2
 	var rotate_speed = 40
 	speed = 50
-	sprite.play("scared-walk")
-	text.play("scared")
-	# spawn guards in a circle around him
-	for s in rotater.get_children():
-		var guard = Global.instance_node(guards, global_position, Global.node_creation_parent)
-		guard.position = s.global_position
-		Global.enemy_count+=1
-		yield(get_tree().create_timer(quickfire), "timeout")
-		
-	# wait for guards to die
-	while(Global.enemy_count > 1):
-		print(Global.enemy_count)
-		yield(get_tree().create_timer(1), "timeout")
-	print("ok im not scared no more lets go")
-	text.play("default")
-	in_action = false
-	stationary = false
-	scared = false
-	speed = default_speed
+	yield(get_tree().create_timer(1), "timeout")
+	if alive:
+		sprite.play("scared-walk")
+		text.play("scared")		
+		# spawn guards in a circle around him
+		var bugCatcher = Global.enemy_count
+		for s in rotater.get_children():
+			var guard = Global.instance_node(guards, global_position, Global.node_creation_parent)
+			guard.position = s.global_position
+			Global.enemy_count+=1
+			yield(get_tree().create_timer(quickfire), "timeout")
+			
+		# wait for guards to die
+		while(Global.enemy_count > 1):
+			print(Global.enemy_count)
+			yield(get_tree().create_timer(1), "timeout")
+		text.play("default")
+		in_action = false
+		stationary = false
+		scared = false
+		speed = default_speed
 
 
 func _process(delta):
@@ -188,18 +191,18 @@ func _process(delta):
 	var new_rotation = rotater.rotation_degrees + rotate_speed * delta
 	rotater.rotation_degrees = fmod(new_rotation, 360)
 	
-	if !Global.dead:	
-		if hp <= (0.5*maxhp) and !has_been_scared and !in_action:
+	if !Global.dead and alive:	
+		if hp <= (0.5*maxhp) and !has_been_scared and !in_action and alive:
 			attack_runAway()
 		
 		if hp <= (0.95*maxhp) and !in_action and global_position.distance_to(Global.player.global_position) < 80:
 			choose_attack()	
 		
 	# if neither stationary nor in an action, walk
-	if !stationary && !in_action:
+	if !stationary and !in_action and alive:
 		sprite.play("walk")
 	# if stationary but not in an actual, idle
-	elif !in_action:
+	elif !in_action and alive:
 		sprite.play("idle")	
 	
 	# flip sprite depending on which way you're going
@@ -211,22 +214,28 @@ func _process(delta):
 		
 	# death
 	if hp <= 0 and alive:
-		visible = false
 		alive = false
+		stationary = true
+		in_action = true
+		speed = 0
+		vel = Vector2(0,0)
 		$deathsound.play()
-		#drops
-		var random = round(rand_range(0, 3))
-		if random == 0:
-			var powerupPicker = round(rand_range(0, drops.size()))
-			Global.instance_node(drops[powerupPicker], global_position, Global.node_creation_parent)
-		
+		Global.boss_dead = true
+		$hitbox.queue_free()
 		# score increase
 		scoreValue = 300-(OS.get_unix_time()-Global.boss_start_time)
 		# score calculated by adding time seconds less than 5 minutes
 		Global.score += scoreValue
-		yield($deathsound, "finished")
-		Global.win = true
+		
+		# death animation
+		text.stop()
+		sprite.play("death")
+		yield(get_tree().create_timer(2.375), "timeout")
+		smoke.play("wide-1")
+		yield(get_tree().create_timer(1.225), "timeout")
 		queue_free()
+		Global.win = true
+
 
 func _on_hitbox_area_entered(area):
 	# if contacted with bullet

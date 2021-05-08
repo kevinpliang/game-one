@@ -7,11 +7,11 @@ onready var zee_sprite = preload("res://characters/zee.tscn")
 onready var boss_sprite = preload("res://characters/boss.tscn")
 
 # enemies
-onready var enemy1 = preload("res://characters/enemy1.tscn")
+onready var enemy5 = preload("res://characters/enemy5.tscn")
 export(Array, PackedScene) var enemies
 
 func _ready():
-	# OS.window_maximized = true
+	OS.window_maximized = true
 	
 	Global.node_creation_parent = self
 	Global.score = 0
@@ -33,15 +33,15 @@ func _exit_tree():
 	$music.stop()
 	$queen.stop()
 	Global.boss = false;
+	Global.enemy_count = 0;
 	Global.node_creation_parent = null
 
 func _process(_delta):
 	randomize()
 	if Global.boss:
 		$music.stop()
-	elif Global.score >= 0 and !Global.boss and !Global.dead:
+	elif Global.score >= 200 and !Global.boss and !Global.dead:
 		# start boss mode
-		print("boss mode!")
 		Global.boss = true
 		Global.boss_start_time = OS.get_unix_time()
 		$music.stop()
@@ -49,13 +49,18 @@ func _process(_delta):
 		$queen.play()
 		yield(get_tree().create_timer(7.5), "timeout")
 		initiateBoss()
+	if Global.boss_dead:
+		$music.stop()
+		$queen.stop()
 	if Global.win:
-		print("You won!")
-		get_tree().quit()
+		yield(get_tree().create_timer(2), "timeout")
+		if !$victory.playing:
+			$victory.play()
+		# get_tree().quit()
 
 func initiateBoss():
 	var center = Vector2(0,0)
-	var boss = Global.instance_node(boss_sprite,  center, self)
+	var boss_spawn = Global.instance_node(boss_sprite,  center, self)
 
 func _on_enemySpawnTimer_timeout():
 	randomize()
@@ -66,7 +71,20 @@ func _on_enemySpawnTimer_timeout():
 			enemy_pos = Vector2(rand_range(10, 374), rand_range(10,206))
 		
 		#randomize enemy choice
-		var enemyPicker = round(rand_range(0, enemies.size()-1))		
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		var enemyPicker = rng.randi_range(0, enemies.size()-1)
 		var enemy = Global.instance_node(enemies[enemyPicker], enemy_pos, self)
 		Global.enemy_count += 1
 		$enemySpawnTimer.wait_time *= 0.93
+	if Global.win:
+		if Global.enemy_count < 100:
+			# don't spawn enemy on island
+			var enemy_pos = Vector2(rand_range(10, 374), rand_range(10,206))
+			while (enemy_pos.x > 40 and enemy_pos.x < 330) and (enemy_pos.y > 25 and enemy_pos.y < 170):
+				enemy_pos = Vector2(rand_range(10, 374), rand_range(10,206))
+		
+			#randomize enemy choice
+			var enemy = Global.instance_node(enemy5, enemy_pos, self)
+			Global.enemy_count += 1
+			$enemySpawnTimer.wait_time *= 0.93

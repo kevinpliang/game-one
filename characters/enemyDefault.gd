@@ -63,6 +63,7 @@ func basic_process(delta):
 		queue_free()
 	elif Global.boss && !spawning && scoreValue > 0:
 		spawning = true
+		Global.enemy_count-=1
 		sprite.play("hurt")
 		yield(get_tree().create_timer(1), "timeout")
 		sprite.play("spawn", true)
