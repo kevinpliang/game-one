@@ -1,7 +1,6 @@
 extends Node
 
 var node_creation_parent = null
-var camera = null
 var player = null
 var dead = false
 var boss = false

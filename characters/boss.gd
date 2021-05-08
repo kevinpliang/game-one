@@ -27,7 +27,7 @@ var stationary = false
 var scared = false
 var in_action = false
 
-export(int) var maxhp = 800
+export(int) var maxhp = 900
 onready var hp = maxhp
 export(int) var scoreValue = 0
 
@@ -163,27 +163,26 @@ func attack_runAway():
 	var quickfire = 0.2
 	var rotate_speed = 40
 	speed = 50
+	sprite.play("scared-walk")
+	text.play("scared")		
 	yield(get_tree().create_timer(1), "timeout")
-	if alive:
-		sprite.play("scared-walk")
-		text.play("scared")		
-		# spawn guards in a circle around him
-		var bugCatcher = Global.enemy_count
-		for s in rotater.get_children():
-			var guard = Global.instance_node(guards, global_position, Global.node_creation_parent)
-			guard.position = s.global_position
-			Global.enemy_count+=1
-			yield(get_tree().create_timer(quickfire), "timeout")
-			
-		# wait for guards to die
-		while(Global.enemy_count > 1):
-			print(Global.enemy_count)
-			yield(get_tree().create_timer(1), "timeout")
-		text.play("default")
-		in_action = false
-		stationary = false
-		scared = false
-		speed = default_speed
+	# spawn guards in a circle around him
+	var bugCatcher = Global.enemy_count
+	for s in rotater.get_children():
+		var guard = Global.instance_node(guards, global_position, Global.node_creation_parent)
+		guard.position = s.global_position
+		Global.enemy_count+=1
+		yield(get_tree().create_timer(quickfire), "timeout")
+		
+	# wait for guards to die
+	while(Global.enemy_count > 1):
+		print(Global.enemy_count)
+		yield(get_tree().create_timer(1), "timeout")
+	text.play("default")
+	in_action = false
+	stationary = false
+	scared = false
+	speed = default_speed
 
 
 func _process(delta):
