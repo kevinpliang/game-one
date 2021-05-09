@@ -240,6 +240,6 @@ func _on_hitbox_area_entered(area):
 	# if contacted with bullet
 	if area.is_in_group("enemy_damager"):
 		$hitsound.play()
-		hp -= 10
+		hp -= Global.damage
 		area.get_parent().queue_free()
 

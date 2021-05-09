@@ -6,7 +6,7 @@
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 speed = 180
-hp = 10
+hp = 2
 
 [node name="AnimatedSprite" parent="." index="0"]
 modulate = Color( 0, 1, 0, 1 )

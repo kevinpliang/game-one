@@ -7,10 +7,17 @@ var boss = false
 var boss_dead = false
 var enemy_count = 0
 
+# 1 is easy (minigun), 2 is normal (smg), 3 is idk (shotgun)
+var weapon = 2
+var damage = 10
+var bullet_speed = 100
+
 var boss_start_time = null
 
 var win = false
+var highscore_easy = 0
 var highscore = 0
+var highscore_hard = 0
 var score = 0
 
 func instance_node(node, location, parent):
@@ -21,7 +28,9 @@ func instance_node(node, location, parent):
 
 func save():
 	var save_dict = {
-		"highscore":highscore
+		"highscore_easy":highscore_easy,
+		"highscore":highscore,
+		"highscore_hard":highscore_hard,
 	}
 	return save_dict
 
@@ -38,4 +47,7 @@ func load_game():
 	savefile.open_encrypted_with_pass("user://savegame.save", File.READ, "ab123")
 	var lines = parse_json(savefile.get_line())
 	highscore = lines["highscore"]
+	if lines.size() == 3:
+		highscore_easy = lines["highscore_easy"]
+		highscore_hard = lines["highscore_hard"]
 	savefile.close()

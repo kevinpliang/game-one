@@ -40,7 +40,7 @@ radius = 7.00247
 modulate = Color( 1.2, 1.2, 1.2, 1 )
 material = SubResource( 1 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 script = ExtResource( 2 )
 
@@ -53,4 +53,5 @@ z_index = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 8 )
+
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

@@ -96,7 +96,7 @@ func _on_Area2D_area_entered(area):
 		$hitstun.start()
 		sprite.play("hurt")
 		modulate = Color(3,3,3)
-		hp -= 10
+		hp -= Global.damage
 		vel *= -4
 		area.get_parent().queue_free()
 

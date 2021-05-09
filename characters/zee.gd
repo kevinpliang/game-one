@@ -51,16 +51,50 @@ func _process(delta):
 			zee_sprite.play("walk")
 		else:		
 			zee_sprite.play("idle")
-	
+		
 	if can_shoot and !Global.dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
-		# print(get_viewport().get_mouse_position())
-		Global.instance_node(bullet, global_position, Global.node_creation_parent)
+		# default smg
+		if Global.weapon == 1:
+			$fireRate.wait_time = 0.2
+			Global.bullet_speed = 200
+			Global.damage = 6
+			Global.instance_node(bullet, global_position, Global.node_creation_parent)
+		# easy minigun
+		elif Global.weapon == 2:
+			$fireRate.wait_time = 0.5
+			Global.damage = 10
+			Global.bullet_speed = 100
+			Global.instance_node(bullet, global_position, Global.node_creation_parent)
+		# hard shotgun
+		elif Global.weapon == 3:
+			$fireRate.wait_time = 1.5
+			Global.bullet_speed = 250
+			Global.damage = 15
+			var dir = global_position.direction_to(get_global_mouse_position())
+			var rot = get_angle_to(get_global_mouse_position())
+			for angle in [-.25, 0, .25]:
+				var radians = deg2rad(angle)
+				var shot = Global.instance_node(bullet, global_position, Global.node_creation_parent)
+				shot.velocity = dir.rotated(angle)
 		$fireRate.start()
 		can_shoot = false
 
 # for restart
 func _input(event):
 	if(Input.is_action_pressed("ui_accept")):
+		# current mode
+		emit_signal("okay")
+	elif(Input.is_action_pressed("num_1")):
+		# easy mode
+		Global.weapon = 1
+		emit_signal("okay")
+	elif(Input.is_action_pressed("num_2")):
+		# normal mode
+		Global.weapon = 2
+		emit_signal("okay")
+	elif(Input.is_action_pressed("num_3")):
+		# hard mode
+		Global.weapon = 3
 		emit_signal("okay")
 
 func _on_fireRate_timeout():
