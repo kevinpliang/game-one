@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://characters/sprites/mc-idle-v2.png" type="Texture" id=1]
 [ext_resource path="res://characters/sprites/mc-walk-v2.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://objects/smokeFX.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game/sounds/enemy-death.ogg" type="AudioStream" id=6]
 [ext_resource path="res://game/HelvetiPixel.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://characters/label.gd" type="Script" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -124,20 +125,36 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=19]
-resource_name = "show_label"
+[sub_resource type="Animation" id=21]
+resource_name = "show_choice"
 length = 2.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("label:percent_visible")
+tracks/0/path = NodePath("text/choice:percent_visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1.5, 1.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 1.0, 1.0, 0.0 ]
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "show_label"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("text/label:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
 }
 
 [sub_resource type="DynamicFont" id=20]
@@ -154,7 +171,7 @@ __meta__ = {
 [node name="ZeeSprite" type="AnimatedSprite" parent="."]
 z_index = 2
 frames = SubResource( 16 )
-animation = "idle"
+animation = "walk"
 
 [node name="fireRate" type="Timer" parent="."]
 wait_time = 0.5
@@ -174,6 +191,7 @@ __meta__ = {
 
 [node name="animations" type="AnimationPlayer" parent="."]
 anims/death = SubResource( 18 )
+anims/show_choice = SubResource( 21 )
 anims/show_label = SubResource( 19 )
 
 [node name="smokeFX" parent="." instance=ExtResource( 5 )]
@@ -185,18 +203,41 @@ frame = 0
 stream = ExtResource( 6 )
 volume_db = -10.0
 
-[node name="label" type="Label" parent="."]
+[node name="text" type="Node2D" parent="."]
+z_index = 10
+
+[node name="label" type="Label" parent="text"]
 margin_left = -56.1605
-margin_top = -20.1753
+margin_top = -19.1753
 margin_right = 93.8395
-margin_bottom = -6.17532
+margin_bottom = -5.17532
 grow_vertical = 0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 20 )
 align = 1
 valign = 1
 autowrap = true
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="choice" type="Label" parent="text"]
+margin_left = -55.946
+margin_top = -33.8444
+margin_right = 94.054
+margin_bottom = -2.8444
+grow_horizontal = 2
+grow_vertical = 2
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = SubResource( 20 )
+text = "
+"
+align = 1
+valign = 1
+autowrap = true
 percent_visible = 0.0
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

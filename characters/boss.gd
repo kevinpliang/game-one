@@ -8,7 +8,7 @@ onready var text = $text
 onready var rotater = $rotater
 onready var current_color = sprite.modulate
 onready var default_speed = speed
-onready var guards = preload("res://characters/guard.tscn")
+onready var guards = preload("res://characters/enemies/guard.tscn")
 onready var freebullet = preload("res://objects/freeBullet.tscn")
 onready var enemybullet = preload("res://objects/enemyBullet.tscn")
 onready var shirt = preload("res://objects/shirt.tscn")
@@ -27,8 +27,9 @@ var has_been_scared = false
 var stationary = false
 var scared = false
 var in_action = false
+var exiting = false
 
-export(int) var maxhp = 0
+export(int) var maxhp = 1
 onready var hp = maxhp
 export(int) var scoreValue = 0
 
@@ -39,6 +40,7 @@ func _ready():
 	stationary = true
 	in_action = true
 	player.play("entrance")
+	print(global_position)
 	var step = 2*PI / guardnum
 	for i in range(guardnum):
 		var barrel = Node2D.new()
@@ -49,6 +51,7 @@ func _ready():
 	if(Global.ish_mode):
 		Global.player.label.text = "bruv best watch oneself"
 		Global.player.animations.play("show_label")
+	Global.player.connect("choice_made", self, "_on_choice_made")
 	
 # after the cutscene entrance
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -68,8 +71,11 @@ func _physics_process(delta):
 		var motion = vel.normalized() * speed
 		move_and_slide(motion)
 	# set boundaries
-	global_position.x = clamp(global_position.x, 60, 317)
-	global_position.y = clamp(global_position.y, 50, 165)
+	if !exiting:
+		global_position.x = clamp(global_position.x, 60, 317)
+		global_position.y = clamp(global_position.y, 50, 165)
+	else:
+		move_and_slide(Vector2(0, -1)*200)
 
 func choose_attack():
 	var rng = RandomNumberGenerator.new()
@@ -174,22 +180,24 @@ func attack_runAway():
 		Global.player.animations.play("show_label")
 	yield(get_tree().create_timer(1), "timeout")
 	# spawn guards in a circle around him
-	var bugCatcher = Global.enemy_count
-	for s in rotater.get_children():
-		var guard = Global.instance_node(guards, global_position, Global.node_creation_parent)
-		guard.position = s.global_position
-		Global.enemy_count+=1
-		yield(get_tree().create_timer(quickfire), "timeout")
-		
-	# wait for guards to die
-	while(Global.enemy_count > 1):
-		print(Global.enemy_count)
-		yield(get_tree().create_timer(1), "timeout")
+	if alive:
+		var bugCatcher = Global.enemy_count
+		for s in rotater.get_children():
+			var guard = Global.instance_node(guards, global_position, Global.node_creation_parent)
+			guard.position = s.global_position
+			Global.enemy_count+=1
+			yield(get_tree().create_timer(quickfire), "timeout")
+			
+		# wait for guards to die
+		while(Global.enemy_count > 1):
+			print(Global.enemy_count)
+			yield(get_tree().create_timer(1), "timeout")
 	text.play("default")
-	in_action = false
-	stationary = false
 	scared = false
-	speed = default_speed
+	in_action = false
+	if alive:
+		stationary = false		
+		speed = default_speed
 
 
 func _process(delta):
@@ -217,7 +225,7 @@ func _process(delta):
 			sprite.flip_h = false
 		elif vel[0] < 1:
 			sprite.flip_h = true
-		
+			
 	# death
 	if hp <= 0 and alive:
 		alive = false
@@ -226,8 +234,9 @@ func _process(delta):
 		speed = 0
 		vel = Vector2(0,0)
 		$deathsound.play()
-		Global.boss_dead = true
+		Global.boss1_dead = true
 		$hitbox.queue_free()
+		Global.vulnerable = false
 		# score increase
 		scoreValue = 300-(OS.get_unix_time()-Global.boss_start_time)
 		# score calculated by adding time seconds less than 5 minutes
@@ -240,11 +249,25 @@ func _process(delta):
 		sprite.play("death")
 		yield(get_tree().create_timer(2.375), "timeout")
 		smoke.play("wide-1")
-		yield(get_tree().create_timer(1.225), "timeout")
-		var death_location = global_position
-		death_location.y -= 15
-		#Global.instance_node(shirt, death_location, Global.node_creation_parent)
+		Global.player.choice.text = "Spare him?\n[1] Yes [2] No"
+		Global.player.animations.queue("show_choice")
+
+func _on_choice_made(choice):
+	var death_location = global_position
+	death_location.y -= 15
+	if choice == 1: # spared
+		Global.spared_justin = true
+		sprite.play("death", true)
+		yield(get_tree().create_timer(3.75), "timeout")
+		sprite.play("exit")
+		yield(get_tree().create_timer(0.6), "timeout")
+		exiting = true
+	elif choice == 2: # nope
+		Global.spared_justin = false
+		sprite.play("not-spared")
+		yield(get_tree().create_timer(2), "timeout")
 		queue_free()
+	Global.instance_node(shirt, death_location, Global.node_creation_parent)
 
 func _on_hitbox_area_entered(area):
 	# if contacted with bullet
@@ -253,3 +276,5 @@ func _on_hitbox_area_entered(area):
 		hp -= Global.damage
 		area.get_parent().queue_free()
 
+func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()

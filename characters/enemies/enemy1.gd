@@ -1,4 +1,4 @@
-extends "res://characters/enemyDefault.gd"
+extends "res://characters/enemies/enemyDefault.gd"
  
 func _physics_process(delta):
 	basic_movement(delta)

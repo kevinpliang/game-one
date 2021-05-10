@@ -1,4 +1,4 @@
-extends "res://characters/enemyDefault.gd"
+extends "res://characters/enemies/enemyDefault.gd"
 
 onready var default_speed = speed
 var goal = Vector2(0,0)

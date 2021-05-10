@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://characters/enemy3.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/enemies/enemy3.tscn" type="PackedScene" id=1]
 
 [node name="KinematicBody2D" instance=ExtResource( 1 )]
 scoreValue = 0

@@ -88,4 +88,4 @@ health = 3
 
 [node name="ZeeSprite" parent="." index="0"]
 frames = SubResource( 16 )
-frame = 1
+animation = "death"

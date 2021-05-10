@@ -61,7 +61,7 @@ func basic_process(delta):
 		Global.score += scoreValue
 		yield($deathsound, "finished")
 		queue_free()
-	elif Global.boss && !spawning && scoreValue > 0:
+	elif Global.boss_mode && !spawning && scoreValue > 0:
 		spawning = true
 		Global.enemy_count-=1
 		sprite.play("hurt")

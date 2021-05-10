@@ -4,7 +4,8 @@ extends KinematicBody2D
 onready var zee_sprite = $ZeeSprite
 onready var animations = $animations
 onready var hurtbox = $hurtbox
-onready var label = $label
+onready var label = $text/label
+onready var choice = $text/choice
 export var health = 1
 var bullet = preload("res://objects/Bullet.tscn")
 
@@ -16,12 +17,15 @@ var vel = Vector2(0, 0)
 var fire_rate = 0.5
 var can_shoot = true
 var dodging = false
+var choosing = false
+var floating = false
 
 # fun
 var konamish = ["ui_up", "ui_up", "ui_down", "ui_down", "ui_left", "ui_right", "ui_left", "ui_right", "ui_accept"]
 var ish_index = 0
 
 signal okay
+signal choice_made(choice)
 
 func _ready():
 	Global.player = self
@@ -34,13 +38,15 @@ func _physics_process(delta):
 	vel.y = (int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))) / float(2)
 	
 	# set boundaries
-	global_position.x = clamp(global_position.x, 60, 317)
-	global_position.y = clamp(global_position.y, 35, 150)
-	
-	# calculate motion (normalized)
-	if !Global.dead and !dodging:
-		var motion = vel.normalized() * speed
-		move_and_slide(motion)
+	if floating:
+		pass
+	else:
+		global_position.x = clamp(global_position.x, 59, 318)
+		global_position.y = clamp(global_position.y, 34, 150)	
+		# calculate motion (normalized)
+		if !Global.dead and !dodging:
+			var motion = vel.normalized() * speed
+			move_and_slide(motion)
 
 func _process(delta):
 	if !Global.dead and !dodging:
@@ -56,7 +62,6 @@ func _process(delta):
 			zee_sprite.play("walk")
 		else:		
 			zee_sprite.play("idle")
-		
 	if can_shoot and !Global.dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
 		# default smg
 		if Global.weapon == 1:
@@ -102,16 +107,25 @@ func _input(event):
 		emit_signal("okay")
 	elif(Input.is_action_pressed("num_1")):
 		# easy mode
-		Global.weapon = 1
-		emit_signal("okay")
+		if Global.dead:
+			Global.weapon = 1
+			emit_signal("okay")
+		if choosing:
+			emit_signal("choice_made", 1)
 	elif(Input.is_action_pressed("num_2")):
 		# normal mode
-		Global.weapon = 2
-		emit_signal("okay")
+		if Global.dead:
+			Global.weapon = 2
+			emit_signal("okay")
+		if choosing:
+			emit_signal("choice_made", 2)
 	elif(Input.is_action_pressed("num_3")):
 		# hard mode
-		Global.weapon = 3
-		emit_signal("okay")
+		if Global.dead:
+			Global.weapon = 3
+			emit_signal("okay")
+		if choosing:
+			emit_signal("choice_made", 3)
 
 func _on_fireRate_timeout():
 	can_shoot = true
@@ -119,7 +133,7 @@ func _on_fireRate_timeout():
 	
 # if you die
 func _on_hurtbox_area_entered(area):
-	if (area.is_in_group("enemy") or area.is_in_group("player_damager") and !Global.boss_dead):
+	if area.is_in_group("enemy") or area.is_in_group("player_damager") and Global.vulnerable:
 		health -= 1
 		if area.is_in_group("player_damager"):
 			area.get_parent().visible = false
@@ -136,7 +150,8 @@ func _on_hurtbox_area_entered(area):
 			Global.save_game()
 			# restart 
 			yield(self, "okay")
-			Global.boss = false;
+			Global.boss_mode = false;
+			Global.boss1_dead = false;
 			get_tree().reload_current_scene()
 		else:
 			label.text = "that didn't hit me"
@@ -148,3 +163,8 @@ func _on_hurtbox_area_entered(area):
 func _on_animations_animation_finished(anim_name):
 	if(anim_name == "death"):
 		animations.stop()
+	if(anim_name == "show_choice"):
+		choosing = true
+		yield(self, "choice_made")
+		choosing = false
+		choice.text = ""

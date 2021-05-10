@@ -3,14 +3,18 @@ extends Node
 var node_creation_parent = null
 var player = null
 var dead = false
-var boss = false
-var boss_dead = false
+var vulnerable = true
+var boss_mode = false  #don't spawn enemies
+var boss1_dead = false
 var enemy_count = 0
 var enemy_max = 4
 var intro_played = false
 var dodge_tutorial_played = false
 var zee = 1
 var ish_mode = false
+
+# choices
+var spared_justin = true
 
 var level = 1
 
@@ -58,3 +62,4 @@ func load_game():
 		highscore_easy = lines["highscore_easy"]
 		highscore_hard = lines["highscore_hard"]
 	savefile.close()
+

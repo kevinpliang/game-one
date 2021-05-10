@@ -1,4 +1,4 @@
-extends "res://characters/enemyDefault.gd"
+extends "res://characters/enemies/enemyDefault.gd"
 
 var shooting = false
 var bullet = preload("res://objects/enemyBullet.tscn")

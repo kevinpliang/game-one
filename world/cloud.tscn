@@ -15,5 +15,5 @@ animations = [ {
 } ]
 
 [node name="AnimatedSprite" type="AnimatedSprite"]
-position = Vector2( 192, 108 )
 frames = SubResource( 2 )
+centered = false
