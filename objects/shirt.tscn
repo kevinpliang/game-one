@@ -50,7 +50,7 @@ height = 3.84055
 [node name="shirt" type="AnimatedSprite"]
 position = Vector2( 0.222725, 0 )
 frames = SubResource( 9 )
-frame = 1
+frame = 2
 playing = true
 script = ExtResource( 2 )
 

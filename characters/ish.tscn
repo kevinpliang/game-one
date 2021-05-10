@@ -84,7 +84,7 @@ animations = [ {
 } ]
 
 [node name="ish" instance=ExtResource( 1 )]
-health = 2
+health = 3
 
 [node name="ZeeSprite" parent="." index="0"]
 frames = SubResource( 16 )

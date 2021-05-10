@@ -28,7 +28,7 @@ var stationary = false
 var scared = false
 var in_action = false
 
-export(int) var maxhp = 10
+export(int) var maxhp = 900
 onready var hp = maxhp
 export(int) var scoreValue = 0
 
@@ -46,7 +46,10 @@ func _ready():
 		barrel.position = pos
 		barrel.rotation = pos.angle()
 		rotater.add_child(barrel)
-
+	if(Global.ish_mode):
+		Global.player.label.text = "bruv best watch oneself"
+		Global.player.animations.play("show_label")
+	
 # after the cutscene entrance
 func _on_AnimationPlayer_animation_finished(anim_name):
 	stationary = false
@@ -165,7 +168,10 @@ func attack_runAway():
 	var rotate_speed = 40
 	speed = 50
 	sprite.play("scared-walk")
-	text.play("scared")		
+	text.play("scared")	
+	if(Global.ish_mode):
+		Global.player.label.text = "you scared?"
+		Global.player.animations.play("show_label")
 	yield(get_tree().create_timer(1), "timeout")
 	# spawn guards in a circle around him
 	var bugCatcher = Global.enemy_count
@@ -226,7 +232,9 @@ func _process(delta):
 		scoreValue = 300-(OS.get_unix_time()-Global.boss_start_time)
 		# score calculated by adding time seconds less than 5 minutes
 		Global.score += scoreValue
-		
+		if(Global.ish_mode):
+			Global.player.label.text = "that was so easy"
+			Global.player.animations.play("show_label")
 		# death animation
 		text.stop()
 		sprite.play("death")
@@ -235,7 +243,7 @@ func _process(delta):
 		yield(get_tree().create_timer(1.225), "timeout")
 		var death_location = global_position
 		death_location.y -= 15
-		Global.instance_node(shirt, death_location, Global.node_creation_parent)
+		#Global.instance_node(shirt, death_location, Global.node_creation_parent)
 		queue_free()
 
 func _on_hitbox_area_entered(area):

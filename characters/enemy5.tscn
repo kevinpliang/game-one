@@ -12,3 +12,6 @@ drops = [  ]
 
 [node name="AnimatedSprite" parent="." index="0"]
 modulate = Color( 1, 1, 1, 1 )
+
+[node name="Hurtbox" parent="Area2D" index="0"]
+disabled = true

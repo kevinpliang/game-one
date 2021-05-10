@@ -3,6 +3,7 @@ extends KinematicBody2D
 # 2D sprite
 onready var zee_sprite = $ZeeSprite
 onready var animations = $animations
+onready var hurtbox = $hurtbox
 onready var label = $label
 export var health = 1
 var bullet = preload("res://objects/Bullet.tscn")
@@ -14,6 +15,7 @@ var vel = Vector2(0, 0)
 # stuff
 var fire_rate = 0.5
 var can_shoot = true
+var dodging = false
 
 # fun
 var konamish = ["ui_up", "ui_up", "ui_down", "ui_down", "ui_left", "ui_right", "ui_left", "ui_right", "ui_accept"]
@@ -26,9 +28,6 @@ func _ready():
 	Global.dead = false
 	zee_sprite.play("idle")
 	
-func _exit_tree():
-	Global.player = null
- 
 func _physics_process(delta):
 	# calculate velocity
 	vel.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
@@ -39,12 +38,12 @@ func _physics_process(delta):
 	global_position.y = clamp(global_position.y, 35, 150)
 	
 	# calculate motion (normalized)
-	if !Global.dead:
+	if !Global.dead and !dodging:
 		var motion = vel.normalized() * speed
 		move_and_slide(motion)
 
 func _process(delta):
-	if !Global.dead:
+	if !Global.dead and !dodging:
 		if vel[0] > 0:
 			$ZeeSprite.flip_h = false
 			zee_sprite.play("walk")
@@ -131,6 +130,7 @@ func _on_hurtbox_area_entered(area):
 			$deathsound.play()
 			animations.play("death")
 			if Global.ish_mode:
+				yield(animations, "animation_finished")
 				label.text = "damn this game is impossible"
 				animations.queue("show_label")
 			Global.save_game()
@@ -141,6 +141,9 @@ func _on_hurtbox_area_entered(area):
 		else:
 			label.text = "that didn't hit me"
 			animations.queue("show_label")
+			self.remove_child(hurtbox)
+			yield(get_tree().create_timer(1.5), "timeout")
+			self.add_child(hurtbox)
 
 func _on_animations_animation_finished(anim_name):
 	if(anim_name == "death"):

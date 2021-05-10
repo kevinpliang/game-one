@@ -190,10 +190,12 @@ margin_left = -56.1605
 margin_top = -20.1753
 margin_right = 93.8395
 margin_bottom = -6.17532
+grow_vertical = 0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 20 )
 align = 1
 valign = 1
+autowrap = true
 percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false

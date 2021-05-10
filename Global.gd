@@ -8,6 +8,7 @@ var boss_dead = false
 var enemy_count = 0
 var enemy_max = 4
 var intro_played = false
+var dodge_tutorial_played = false
 var ish_mode = false
 
 # 1 is easy (minigun), 2 is normal (smg), 3 is idk (shotgun)
