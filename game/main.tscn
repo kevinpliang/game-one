@@ -39,8 +39,7 @@ autostart = true
 z_index = 10
 
 [node name="Control" type="Control" parent="UI"]
-margin_left = -0.420456
-margin_right = 383.58
+margin_right = 384.0
 margin_bottom = 216.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -117,7 +116,6 @@ __meta__ = {
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = -10.0
-autoplay = true
 
 [node name="queen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )

@@ -3,6 +3,8 @@ extends KinematicBody2D
 # 2D sprite
 onready var zee_sprite = $ZeeSprite
 onready var animations = $animations
+onready var label = $label
+export var health = 1
 var bullet = preload("res://objects/Bullet.tscn")
 
 # player speed and velocity vector
@@ -12,6 +14,10 @@ var vel = Vector2(0, 0)
 # stuff
 var fire_rate = 0.5
 var can_shoot = true
+
+# fun
+var konamish = ["ui_up", "ui_up", "ui_down", "ui_down", "ui_left", "ui_right", "ui_left", "ui_right", "ui_accept"]
+var ish_index = 0
 
 signal okay
 
@@ -81,6 +87,17 @@ func _process(delta):
 
 # for restart
 func _input(event):
+	if(Input.is_action_pressed(konamish[ish_index])):
+		ish_index+=1
+		if ish_index == konamish.size():
+			ish_index = 0
+			#activate ish mode
+			if Global.dead:
+				Global.ish_mode = true
+				print("ish mode activate")
+				emit_signal("okay")
+	elif event is InputEventKey and event.pressed:
+		ish_index = 0
 	if(Input.is_action_pressed("ui_accept")):
 		# current mode
 		emit_signal("okay")
@@ -103,18 +120,27 @@ func _on_fireRate_timeout():
 	
 # if you die
 func _on_hurtbox_area_entered(area):
-	if (area.is_in_group("enemy") or area.is_in_group("player_damager")) and !Global.boss_dead:
+	if (area.is_in_group("enemy") or area.is_in_group("player_damager") and !Global.boss_dead):
+		health -= 1
 		if area.is_in_group("player_damager"):
 			area.get_parent().visible = false
-		Global.dead = true
-		$hurtbox.queue_free()
-		$deathsound.play()
-		animations.play("death")
-		Global.save_game()		
-		# restart 
-		yield(self, "okay")
-		Global.boss = false;
-		get_tree().reload_current_scene()
+		if health <= 0:
+			print(Global.ish_mode)
+			Global.dead = true
+			$hurtbox.queue_free()
+			$deathsound.play()
+			animations.play("death")
+			if Global.ish_mode:
+				label.text = "damn this game is impossible"
+				animations.queue("show_label")
+			Global.save_game()
+			# restart 
+			yield(self, "okay")
+			Global.boss = false;
+			get_tree().reload_current_scene()
+		else:
+			label.text = "that didn't hit me"
+			animations.queue("show_label")
 
 func _on_animations_animation_finished(anim_name):
 	if(anim_name == "death"):

@@ -4,5 +4,5 @@
 [ext_resource path="res://objects/freeBullet.gd" type="Script" id=2]
 
 [node name="freeBullet" instance=ExtResource( 1 )]
-frame = 3
+frame = 2
 script = ExtResource( 2 )

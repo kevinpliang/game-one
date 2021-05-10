@@ -9,7 +9,7 @@ func _physics_process(delta):
 	if(!shooting):
 		still = false
 		if(global_position.distance_to(Global.player.global_position) < 100 and global_position.x > 60 and global_position.x < 317 and global_position.y > 35 and global_position.y <150):
-			if !shooting and !stun:
+			if !shooting and !stun and alive:
 				still = true
 				shooting = true
 				shoot()	

@@ -11,6 +11,7 @@ onready var default_speed = speed
 onready var guards = preload("res://characters/guard.tscn")
 onready var freebullet = preload("res://objects/freeBullet.tscn")
 onready var enemybullet = preload("res://objects/enemyBullet.tscn")
+onready var shirt = preload("res://objects/shirt.tscn")
 
 # enemy speed and velocity vector
 var alive = true
@@ -27,7 +28,7 @@ var stationary = false
 var scared = false
 var in_action = false
 
-export(int) var maxhp = 900
+export(int) var maxhp = 10
 onready var hp = maxhp
 export(int) var scoreValue = 0
 
@@ -194,7 +195,7 @@ func _process(delta):
 		if hp <= (0.5*maxhp) and !has_been_scared and !in_action and alive:
 			attack_runAway()
 		
-		if hp <= (0.95*maxhp) and !in_action and global_position.distance_to(Global.player.global_position) < 80:
+		if hp <= (0.95*maxhp) and hp > 0 and !in_action and global_position.distance_to(Global.player.global_position) < 80:
 			choose_attack()	
 		
 	# if neither stationary nor in an action, walk
@@ -232,9 +233,10 @@ func _process(delta):
 		yield(get_tree().create_timer(2.375), "timeout")
 		smoke.play("wide-1")
 		yield(get_tree().create_timer(1.225), "timeout")
+		var death_location = global_position
+		death_location.y -= 15
+		Global.instance_node(shirt, death_location, Global.node_creation_parent)
 		queue_free()
-		Global.win = true
-
 
 func _on_hitbox_area_entered(area):
 	# if contacted with bullet

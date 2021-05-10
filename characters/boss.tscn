@@ -7,7 +7,7 @@
 [ext_resource path="res://characters/sprites/jgou-walk.png" type="Texture" id=5]
 [ext_resource path="res://objects/smokeFX.tscn" type="PackedScene" id=6]
 [ext_resource path="res://characters/sprites/jgou-scared.png" type="Texture" id=7]
-[ext_resource path="res://objects/up_fireRate.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/shirt.tscn" type="PackedScene" id=8]
 [ext_resource path="res://characters/sprites/jgou-scared-text.png" type="Texture" id=9]
 [ext_resource path="res://characters/sprites/jgou-attack-2.png" type="Texture" id=10]
 [ext_resource path="res://characters/sprites/jgou-attack-0 - Copy.png" type="Texture" id=11]
@@ -243,51 +243,51 @@ atlas = ExtResource( 10 )
 region = Rect2( 432, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 12 )
+atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 12 )
+atlas = ExtResource( 11 )
 region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 12 )
+atlas = ExtResource( 11 )
 region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 12 )
+atlas = ExtResource( 11 )
 region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=62]
-atlas = ExtResource( 12 )
+atlas = ExtResource( 11 )
 region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=63]
-atlas = ExtResource( 12 )
+atlas = ExtResource( 11 )
 region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=64]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=65]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 12 )
 region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=66]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 12 )
 region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=67]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 12 )
 region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=68]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 12 )
 region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=69]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 12 )
 region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="SpriteFrames" id=70]
@@ -322,15 +322,15 @@ animations = [ {
 "name": "attack-2",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 59 ) ],
-"loop": true,
-"name": "attack-1",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ) ],
+"frames": [ SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ) ],
 "loop": true,
 "name": "attack-0",
 "speed": 8.0
+}, {
+"frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 65 ) ],
+"loop": true,
+"name": "attack-1",
+"speed": 10.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=71]

@@ -51,7 +51,7 @@ func basic_process(delta):
 				blood_instance.rotation = vel.angle()
 			#drop
 			randomize()
-			var random = round(rand_range(0, 2))
+			var random = round(rand_range(0, 3))
 			if random == 0 && scoreValue > 0:
 				var powerupPicker = round(rand_range(0, drops.size()-1))
 				Global.instance_node(drops[powerupPicker], global_position, Global.node_creation_parent)
