@@ -7,6 +7,7 @@ func _on_Area2D_area_entered(area):
 		var zee = area.get_parent()
 		var zee_pos = area.global_position
 		zee.queue_free()
+		Global.zee = 2
 		Global.instance_node(zee2, zee_pos, Global.node_creation_parent)		
 		queue_free()
 	elif area.is_in_group("player") and Global.ish_mode:

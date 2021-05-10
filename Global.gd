@@ -9,7 +9,10 @@ var enemy_count = 0
 var enemy_max = 4
 var intro_played = false
 var dodge_tutorial_played = false
+var zee = 1
 var ish_mode = false
+
+var level = 1
 
 # 1 is easy (minigun), 2 is normal (smg), 3 is idk (shotgun)
 var weapon = 2

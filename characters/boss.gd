@@ -28,7 +28,7 @@ var stationary = false
 var scared = false
 var in_action = false
 
-export(int) var maxhp = 900
+export(int) var maxhp = 0
 onready var hp = maxhp
 export(int) var scoreValue = 0
 
