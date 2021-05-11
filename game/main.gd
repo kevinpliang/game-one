@@ -3,8 +3,13 @@ extends Node
 # first we preload the scenes
 onready var intro = preload("res://game/Intro.tscn")
 onready var main_menu = preload("res://game/menu.tscn")
+
+# backgrounds
 onready var island = preload("res://world/island.tscn")
+onready var sky = preload("res://world/sky.tscn")
 onready var cloud = preload("res://world/cloud.tscn")
+
+# characters
 onready var zee = preload("res://characters/zee.tscn")
 onready var zee2 = preload("res://characters/zee2.tscn")
 onready var ish = preload("res://characters/ish.tscn")
@@ -19,6 +24,12 @@ export(Array, PackedScene) var enemies_1
 export(Array, PackedScene) var enemies_2
 
 var intro_playing = true
+
+# music
+var theme_1 = load("res://game/sounds/toadv2.ogg")
+var theme_2 = load("res://game/sounds/river.ogg")
+var boss_1 = load("res://game/sounds/queenA.ogg")
+var victory = load("res://game/sounds/yong.ogg")
 
 func _ready():
 	OS.window_maximized = true
@@ -38,8 +49,8 @@ func _ready():
 	var character = zee.instance()	
 	
 	# DEV
-	Global.level = 1
-	Global.zee = 1
+	Global.level = 2
+	Global.zee = 2
 	
 	loadLevel()
 	
@@ -51,6 +62,7 @@ func _ready():
 		character = zee2.instance()
 	add_child(character)
 	
+	$music.play()
 	# add them to our main node
 	if !Global.intro_played:
 		add_child(intro_instance)
@@ -58,35 +70,32 @@ func _ready():
 		yield(get_tree().create_timer(4), "timeout")
 	intro_playing = false
 	# add_child(menu)
-	#music 
-	$music.play()
 
 func _exit_tree():
 	$music.stop()
-	$queen.stop()
 	Global.boss_mode = false;
 	Global.enemy_count = 0;
 	Global.node_creation_parent = null
 
 func _process(_delta):
-	if Global.boss_mode:
-		$music.stop()
-	elif Global.score >= 0 and !Global.boss_mode and !Global.dead and !Global.win and !Global.boss1_dead:
+	if Global.score >= 0 and !Global.boss_mode and !Global.dead and !Global.win and !Global.boss1_dead:
 		# start boss1 encounter if its not boss mode
+		print("starting boss mode")
 		Global.boss_mode = true
 		Global.boss_start_time = OS.get_unix_time()
 		$music.stop()
 		yield(get_tree().create_timer(1), "timeout")
-		$queen.play()
+		$music.stream = boss_1
+		$music.play()
 		yield(get_tree().create_timer(7.5), "timeout")
 		initiateBoss1()
-	if Global.boss1_dead and Global.level == 1:
+	elif Global.boss1_dead and Global.level == 1 and $music.get_stream() != victory:
 		# controls music ONLY
 		$music.stop()
-		$queen.stop()
-		yield(get_tree().create_timer(4), "timeout")
-		if !$victory.playing:
-				$victory.play()		
+		$music.stream = victory
+		$music.set_volume_db(-15)
+		yield(get_tree().create_timer(2.5), "timeout")
+		$music.play()
 	if Global.win:
 		get_tree().quit()
 
@@ -101,6 +110,12 @@ func loadLevel():
 		Global.instance_node(island, Vector2(0,0), Global.node_creation_parent)
 		crosshair.load("res://objects/sprites/crosshair.png")
 		enemies = enemies_1
+	elif Global.level == 1.5:
+		$music.set_volume_db(-10)
+		$music.stream = theme_2
+		$music.play()
+		Global.instance_node(sky, Vector2(0,0), Global.node_creation_parent)
+		enemies = []
 	elif Global.level == 2:
 		Global.instance_node(cloud, Vector2(0,0), Global.node_creation_parent)
 		crosshair.load("res://objects/sprites/crosshair-black.png")

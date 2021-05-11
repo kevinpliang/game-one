@@ -2,17 +2,64 @@ extends "res://characters/zee.gd"
 
 var windup = false 
 var airborne = false #lmfao
+var got_that = false
+
+var landed_on_2 = false
 
 func _ready():
 	Global.player = self
 	Global.dead = false
+	Global.player.connect("choice_made", self, "_on_choice_made")	
+	
+	label.text = "red shirt acquired!"
+	animations.queue("show_label")
+	yield(animations, "animation_finished")
+	
+	while !got_that:
+		label.text = "right click to dodge"
+		animations.queue("show_label")
+		yield(animations, "animation_finished")
+		label.text = "you can control your direction when airborne"
+		animations.queue("show_label")
+		yield(animations, "animation_finished")
+		label.text = "you are invincible during the first part of the dodge"
+		animations.queue("show_label")
+		yield(animations, "animation_finished")
+		label.text = "but vulnerable when landing"
+		animations.queue("show_label")
+		yield(animations, "animation_finished")
+		animations.stop()
+		choice.text = "Did you get that?\n[1] Yes [2] No"
+		animations.queue("show_choice")
+		yield(self, "choice_made")
+	zee_sprite.play("roll")
+	yield(get_tree().create_timer(0.166), "timeout")
 	zee_sprite.play("float")
 	floating = true
+	label.text = "wait what"
+	animations.queue("show_label")
+
+func _on_choice_made(choice):
+	if choice == 1:
+		got_that = true
+	elif choice == 2:
+		got_that = false
 
 func _process(delta):
+	if Global.level == 2:
+		floating = false
+		if !landed_on_2:
+			landed_on_2 = true
+			floating = true
+			animations.play("float_to_middle")
+			floating = false
+			print(global_position)
+		
 	if floating:
 		can_shoot = false
 		zee_sprite.play("float")
+		
+	# dodge..
 	elif !dodging and Input.is_action_pressed("right_click"):
 		zee_sprite.play("roll")
 		dodging = true
@@ -34,33 +81,20 @@ func _process(delta):
 		yield(get_tree().create_timer(0.333), "timeout")
 		dodging = false
 		can_shoot = true
-
-	if !Global.dodge_tutorial_played and Global.level == 2:
-		Global.dodge_tutorial_played = true
-		label.text = "right click to dodge"
-		animations.play("show_label")
-		yield(animations, "animation_finished")
-		label.text = "you can control your direction when airborne"
-		animations.play("show_label")
-		yield(animations, "animation_finished")
-		label.text = "you are invincible during the first part of the dodge"
-		animations.queue("show_label")
-		yield(animations, "animation_finished")
-		label.text = "but vulnerable when landing"
-		animations.queue("show_label")
-		yield(animations, "animation_finished")
-		animations.stop()
 		
+	if global_position.y <= 0 and Global.level == 1:
+		he_gone(Global.level)
+				
 func _physics_process(delta):
 	# roll
 	if airborne:
 		move_and_slide(vel.normalized() * speed *1.8)
 	elif floating:
+		zee_sprite.play("float")
 		move_and_slide(Vector2(0,-1)*30)
 
-func _on_VisibilityNotifier2D_screen_exited():
-	print("he gone")
+func he_gone(level):
 	Global.boss_mode = false
-	Global.level = 2
+	Global.level = 1.5
 	Global.node_creation_parent.loadLevel()
-	floating = false
+	floating = true

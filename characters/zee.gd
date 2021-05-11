@@ -39,17 +39,24 @@ func _physics_process(delta):
 	
 	# set boundaries
 	if floating:
-		pass
+		if vel.x > 0:
+			$ZeeSprite.flip_h = true
+		elif vel.x < 0:
+			$ZeeSprite.flip_h = false
 	else:
-		global_position.x = clamp(global_position.x, 59, 318)
-		global_position.y = clamp(global_position.y, 34, 150)	
+		if Global.level == 1:
+			global_position.x = clamp(global_position.x, 59, 318)
+			global_position.y = clamp(global_position.y, 34, 150)
+		elif Global.level == 2:
+			global_position.x = clamp(global_position.x, 59, 318)
+			global_position.y = clamp(global_position.y, 270-116, 270)
 		# calculate motion (normalized)
 		if !Global.dead and !dodging:
 			var motion = vel.normalized() * speed
 			move_and_slide(motion)
 
 func _process(delta):
-	if !Global.dead and !dodging:
+	if !Global.dead and !dodging and !floating:
 		if vel[0] > 0:
 			$ZeeSprite.flip_h = false
 			zee_sprite.play("walk")

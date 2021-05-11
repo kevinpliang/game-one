@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://world/sprites/sky2.png" type="Texture" id=1]
+[ext_resource path="res://world/sky.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "scroll"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 20 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 192, 0 ), Vector2( 192, 900 ) ]
+}
+
+[node name="sky" type="Sprite"]
+position = Vector2( 192, 0 )
+z_index = -5
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "scroll"
+anims/scroll = SubResource( 1 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

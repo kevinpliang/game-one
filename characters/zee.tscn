@@ -125,7 +125,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=19]
 resource_name = "show_choice"
 length = 2.0
 tracks/0/type = "value"
@@ -141,9 +141,8 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=19]
-resource_name = "show_label"
-length = 1.5
+[sub_resource type="Animation" id=20]
+length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("text/label:percent_visible")
 tracks/0/interp = 1
@@ -151,13 +150,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 1.0, 1.0, 0.0 ]
+"values": [ 0.0, 1.0, 1.0, 0.0 ]
 }
 
-[sub_resource type="DynamicFont" id=20]
+[sub_resource type="DynamicFont" id=21]
 font_data = ExtResource( 7 )
 
 [node name="Zee" type="KinematicBody2D"]
@@ -191,8 +190,8 @@ __meta__ = {
 
 [node name="animations" type="AnimationPlayer" parent="."]
 anims/death = SubResource( 18 )
-anims/show_choice = SubResource( 21 )
-anims/show_label = SubResource( 19 )
+anims/show_choice = SubResource( 19 )
+anims/show_label = SubResource( 20 )
 
 [node name="smokeFX" parent="." instance=ExtResource( 5 )]
 position = Vector2( -1.18919, 4.48668 )
@@ -213,7 +212,7 @@ margin_right = 93.8395
 margin_bottom = -5.17532
 grow_vertical = 0
 rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 21 )
 align = 1
 valign = 1
 autowrap = true
@@ -230,7 +229,7 @@ margin_bottom = -2.8444
 grow_horizontal = 2
 grow_vertical = 2
 rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 21 )
 text = "
 "
 align = 1
