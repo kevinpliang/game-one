@@ -44,12 +44,9 @@ func _physics_process(delta):
 		elif vel.x < 0:
 			$ZeeSprite.flip_h = false
 	else:
-		if Global.level == 1:
-			global_position.x = clamp(global_position.x, 59, 318)
-			global_position.y = clamp(global_position.y, 34, 150)
-		elif Global.level == 2:
-			global_position.x = clamp(global_position.x, 59, 318)
-			global_position.y = clamp(global_position.y, 270-116, 270)
+		global_position.x = clamp(global_position.x, 59, 318)
+		global_position.y = clamp(global_position.y, 33, 149)
+
 		# calculate motion (normalized)
 		if !Global.dead and !dodging:
 			var motion = vel.normalized() * speed
@@ -67,7 +64,7 @@ func _process(delta):
 			zee_sprite.play("walk")
 		elif vel[1] > 0:
 			zee_sprite.play("walk")
-		else:		
+		else:
 			zee_sprite.play("idle")
 	if can_shoot and !Global.dead and Input.is_action_pressed("left_click") and Global.node_creation_parent != null:
 		# default smg

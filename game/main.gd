@@ -49,8 +49,9 @@ func _ready():
 	var character = zee.instance()	
 	
 	# DEV
-	Global.level = 2
-	Global.zee = 2
+#	Global.level = 2
+#	Global.zee = 2
+#	Global.boss1_dead = true
 	
 	loadLevel()
 	
@@ -99,6 +100,7 @@ func _process(_delta):
 	if Global.win:
 		get_tree().quit()
 
+
 func initiateBoss1():
 	var center = Vector2(0,0)
 	var boss_spawn = Global.instance_node(boss_sprite,  center, self)
@@ -117,6 +119,9 @@ func loadLevel():
 		Global.instance_node(sky, Vector2(0,0), Global.node_creation_parent)
 		enemies = []
 	elif Global.level == 2:
+		if !$music.playing:
+			$music.stream = theme_2
+			$music.play()
 		Global.instance_node(cloud, Vector2(0,0), Global.node_creation_parent)
 		crosshair.load("res://objects/sprites/crosshair-black.png")
 		enemies = enemies_2

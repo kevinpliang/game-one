@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://game/main.gd" type="Script" id=1]
 [ext_resource path="res://game/HelvetiPixel.ttf" type="DynamicFontData" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://characters/enemies/enemy1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://characters/enemies/enemy2.tscn" type="PackedScene" id=7]
 [ext_resource path="res://game/sounds/toadv2.ogg" type="AudioStream" id=8]
+[ext_resource path="res://game/Pause.gd" type="Script" id=9]
 [ext_resource path="res://characters/enemies/enemy3.tscn" type="PackedScene" id=10]
 [ext_resource path="res://characters/enemies/enemy4.tscn" type="PackedScene" id=11]
 [ext_resource path="res://game/Victory.gd" type="Script" id=12]
@@ -23,6 +24,9 @@ font_data = ExtResource( 2 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 2 )
 
 [node name="main" type="Node"]
@@ -107,6 +111,35 @@ text = "Mode Selection:
 align = 1
 valign = 1
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pause" type="Control" parent="UI"]
+pause_mode = 2
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="ColorRect" parent="UI/Pause"]
+visible = false
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 112.0
+margin_bottom = 48.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/Pause/Menu"]
+margin_top = 8.0
+margin_right = 96.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 5 )
+text = "Paused"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
