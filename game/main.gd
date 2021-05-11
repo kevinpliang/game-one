@@ -49,9 +49,9 @@ func _ready():
 	var character = zee.instance()	
 	
 	# DEV
-#	Global.level = 2
-#	Global.zee = 2
-#	Global.boss1_dead = true
+	Global.level = 2
+	Global.zee = 2
+	Global.boss1_dead = true
 	
 	loadLevel()
 	
