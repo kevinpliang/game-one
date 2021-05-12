@@ -188,12 +188,10 @@ tracks/0/keys = {
 }
 
 [node name="Zee2" instance=ExtResource( 1 )]
-position = Vector2( 0, 0 )
 z_index = 2
 script = ExtResource( 6 )
 
 [node name="ZeeSprite" parent="." index="0"]
-position = Vector2( 0, 2.35294 )
 frames = SubResource( 27 )
 animation = "idle"
 

@@ -4,6 +4,7 @@ extends KinematicBody2D
 onready var zee_sprite = $ZeeSprite
 onready var animations = $animations
 onready var hurtbox = $hurtbox
+onready var collisionBox = $collisionBox
 onready var label = $text/label
 onready var choice = $text/choice
 export var health = 1
@@ -30,6 +31,7 @@ signal choice_made(choice)
 func _ready():
 	Global.player = self
 	Global.dead = false
+	global_position = Vector2(192,97)
 	zee_sprite.play("idle")
 	
 func _physics_process(delta):

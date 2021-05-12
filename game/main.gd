@@ -40,7 +40,7 @@ func _ready():
 	
 	var dead = false
 	var boss_mode = false 
-	var boss1_dead = false # first boss?
+	var boss1_dead = false # first boss
 	var win = false
 	
 	# load in scenes
@@ -49,10 +49,11 @@ func _ready():
 	var character = zee.instance()	
 	
 	# DEV
-	Global.level = 2
-	Global.zee = 2
+	Global.level = 1
+	Global.zee = 1
 	Global.boss1_dead = true
 	Global.spared_justin = false
+	Global.instance_node(shirt, Vector2(197,80), Global.node_creation_parent)
 	
 	loadLevel()
 	

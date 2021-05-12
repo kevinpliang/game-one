@@ -164,8 +164,8 @@ height = 7.74667
 font_data = ExtResource( 7 )
 
 [node name="Zee" type="KinematicBody2D"]
-position = Vector2( 191.946, 89.8444 )
 z_index = 1
+collision_mask = 14
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
@@ -184,6 +184,7 @@ one_shot = true
 "player",
 ]]
 scale = Vector2( 1.00479, 1 )
+collision_layer = 2
 
 [node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2( -0.541504, 5.57949 )
@@ -214,10 +215,10 @@ shape = SubResource( 21 )
 z_index = 10
 
 [node name="label" type="Label" parent="text"]
-margin_left = -56.1605
-margin_top = -19.1753
-margin_right = 93.8395
-margin_bottom = -5.17532
+margin_left = -56.0
+margin_top = -31.0
+margin_right = 94.0
+margin_bottom = -1.0
 grow_vertical = 0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 22 )
@@ -230,10 +231,10 @@ __meta__ = {
 }
 
 [node name="choice" type="Label" parent="text"]
-margin_left = -55.946
-margin_top = -33.8444
-margin_right = 94.054
-margin_bottom = -2.8444
+margin_left = -55.8468
+margin_top = -31.7609
+margin_right = 94.1532
+margin_bottom = -0.760933
 grow_horizontal = 2
 grow_vertical = 2
 rect_scale = Vector2( 0.75, 0.75 )
