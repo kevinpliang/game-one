@@ -49,11 +49,10 @@ func _ready():
 	var character = zee.instance()	
 	
 	# DEV
-	Global.level = 1
-	Global.zee = 1
+	Global.level = 2
+	Global.zee = 2
 	Global.boss1_dead = true
 	Global.spared_justin = false
-	Global.instance_node(shirt, Vector2(197,80), Global.node_creation_parent)
 	
 	loadLevel()
 	
@@ -140,7 +139,7 @@ func _on_enemySpawnTimer_timeout():
 		#randomize enemy choice
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
-		if(enemies.size() > 0):
+		if enemies.size() > 0 :
 			var enemyPicker = rng.randi_range(0, enemies.size()-1)
 			var enemy = Global.instance_node(enemies[enemyPicker], enemy_pos, self)
 			Global.enemy_count += 1
