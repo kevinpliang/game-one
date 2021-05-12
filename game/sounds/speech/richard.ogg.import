@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/richard.ogg-6a98203900844ce46228deab082f8f68.oggstr"
+
+[deps]
+
+source_file="res://game/sounds/speech/richard.ogg"
+dest_files=[ "res://.import/richard.ogg-6a98203900844ce46228deab082f8f68.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

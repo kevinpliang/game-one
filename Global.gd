@@ -18,13 +18,14 @@ var spared_justin = true
 
 var level = 1
 
+signal stop_music
+
 # 1 is easy (minigun), 2 is normal (smg), 3 is idk (shotgun)
 var weapon = 2
 var damage = 10
 var bullet_speed = 100
 
 var boss_start_time = null
-
 var win = false
 var highscore_easy = 0
 var highscore = 0

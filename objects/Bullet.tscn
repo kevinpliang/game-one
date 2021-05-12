@@ -39,8 +39,9 @@ radius = 7.00247
 [node name="Bullet" type="AnimatedSprite"]
 modulate = Color( 1.2, 1.2, 1.2, 1 )
 material = SubResource( 1 )
+z_index = 4
 frames = SubResource( 7 )
-frame = 1
+frame = 3
 playing = true
 script = ExtResource( 2 )
 

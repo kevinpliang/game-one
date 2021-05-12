@@ -48,6 +48,9 @@ func _ready():
 	var menu = main_menu.instance()	
 	var character = zee.instance()	
 	
+	# connect to signals
+	Global.connect("stop_music", self, "_on_stop_music_received")
+	
 	# DEV
 	Global.level = 2
 	Global.zee = 2
@@ -100,7 +103,6 @@ func _process(_delta):
 		$music.play()
 	if Global.win:
 		get_tree().quit()
-
 
 func initiateBoss1():
 	var center = Vector2(0,0)
@@ -156,3 +158,6 @@ func _on_enemySpawnTimer_timeout():
 #			var enemy = Global.instance_node(enemy5, enemy_pos, self)
 #			Global.enemy_count += 1
 #			$enemySpawnTimer.wait_time *= 0.93
+
+func _on_stop_music_received():
+	$music.stop()

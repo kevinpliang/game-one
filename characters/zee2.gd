@@ -57,6 +57,7 @@ func _process(delta):
 			animations.play("float_to_middle")
 			yield(animations, "animation_finished")
 			floating = false
+			can_shoot = true
 			global_position = Vector2(191.946, 97)
 					
 	if floating:
