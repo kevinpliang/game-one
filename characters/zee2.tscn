@@ -195,7 +195,7 @@ script = ExtResource( 6 )
 [node name="ZeeSprite" parent="." index="0"]
 position = Vector2( 0, 2.35294 )
 frames = SubResource( 27 )
-animation = "float"
+animation = "idle"
 
 [node name="animations" parent="." index="3"]
 anims/float_to_middle = SubResource( 28 )

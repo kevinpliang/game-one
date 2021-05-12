@@ -52,6 +52,7 @@ func _ready():
 	Global.level = 2
 	Global.zee = 2
 	Global.boss1_dead = true
+	Global.spared_justin = false
 	
 	loadLevel()
 	
