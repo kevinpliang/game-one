@@ -71,10 +71,13 @@ func _process(delta):
 		can_shoot = false
 		
 		# wind up
-		windup = true
+		#windup = true
 		self.remove_child(hurtbox)
-		yield(get_tree().create_timer(0.166), "timeout")
-		windup = false		
+		#yield(get_tree().create_timer(0.166), "timeout")
+		#windup = false		
+		
+		# fix: getting hit during dodge makes him loop dodge after death
+		# uhh can't replicate..
 		
 		# airborne
 		airborne = true
