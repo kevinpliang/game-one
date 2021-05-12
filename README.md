@@ -1,3 +1,3 @@
-# game-one
+# stranded
 
-first game
+the second ever strand-type game
