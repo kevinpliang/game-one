@@ -225,6 +225,7 @@ custom_fonts/font = SubResource( 22 )
 align = 1
 valign = 2
 autowrap = true
+percent_visible = 0.0
 script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false

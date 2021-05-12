@@ -58,13 +58,13 @@ func _process(delta):
 			yield(animations, "animation_finished")
 			floating = false
 			global_position = Vector2(191.946, 97)
-		
+					
 	if floating:
 		can_shoot = false
 		zee_sprite.play("float")
 		
 	# dodge..
-	elif !dodging and Input.is_action_pressed("right_click"):
+	elif !dodging and !stationary and Input.is_action_pressed("right_click"):
 		zee_sprite.play("roll")
 		dodging = true
 		can_shoot = false

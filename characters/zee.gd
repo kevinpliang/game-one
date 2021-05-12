@@ -20,6 +20,7 @@ var can_shoot = true
 var dodging = false
 var choosing = false
 var floating = false
+var stationary = false
 
 # fun
 var konamish = ["ui_up", "ui_up", "ui_down", "ui_down", "ui_left", "ui_right", "ui_left", "ui_right", "ui_accept"]
@@ -50,12 +51,14 @@ func _physics_process(delta):
 		global_position.y = clamp(global_position.y, 33, 149)
 
 		# calculate motion (normalized)
-		if !Global.dead and !dodging:
+		if !Global.dead and !dodging and !stationary:
 			var motion = vel.normalized() * speed
 			move_and_slide(motion)
 
 func _process(delta):
-	if !Global.dead and !dodging and !floating:
+	if !Global.dead and stationary:
+		zee_sprite.play("idle")
+	elif !Global.dead and !dodging and !floating:
 		if vel[0] > 0:
 			$ZeeSprite.flip_h = false
 			zee_sprite.play("walk")

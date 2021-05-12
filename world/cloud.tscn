@@ -1,10 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://world/sprites/cloud.png" type="Texture" id=1]
 [ext_resource path="res://world/cloud.gd" type="Script" id=2]
-[ext_resource path="res://characters/sprites/richard/richard-sitting.png" type="Texture" id=3]
-[ext_resource path="res://world/Richard.gd" type="Script" id=4]
-[ext_resource path="res://characters/sprites/richard/richard-sitting-head.png" type="Texture" id=5]
+[ext_resource path="res://characters/Richard.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -18,74 +16,11 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 48, 48 )
-
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ SubResource( 6 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 48, 48 )
-
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ SubResource( 3 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="CircleShape2D" id=5]
-radius = 29.0172
-
 [node name="Cloud" type="AnimatedSprite"]
 z_index = -5
 frames = SubResource( 2 )
 centered = false
 script = ExtResource( 2 )
 
-[node name="Richard" type="KinematicBody2D" parent="."]
-position = Vector2( 315, 86 )
-scale = Vector2( 1.02072, 1 )
-collision_layer = 2
-collision_mask = 15
-script = ExtResource( 4 )
-
-[node name="HeadSprite" type="AnimatedSprite" parent="Richard"]
-z_index = 11
-frames = SubResource( 7 )
-
-[node name="BodySprite" type="AnimatedSprite" parent="Richard"]
-frames = SubResource( 4 )
-
-[node name="interactRange" type="Area2D" parent="Richard"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Richard/interactRange"]
-shape = SubResource( 5 )
-
-[node name="Label" type="Label" parent="Richard"]
-margin_left = -40.1677
-margin_top = -33.0
-margin_right = 40.8323
-margin_bottom = -16.0
-align = 1
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Richard"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Richard"]
-build_mode = 1
-polygon = PoolVector2Array( -8.81729, 0, -0.979706, 0, 4.8985, -3, 1.95941, -9, -4.8985, -9, -10.7767, -2 )
-
-[connection signal="area_entered" from="Richard/interactRange" to="Richard" method="_on_interactRange_area_entered"]
-[connection signal="area_exited" from="Richard/interactRange" to="Richard" method="_on_interactRange_area_exited"]
+[node name="Richard" parent="." instance=ExtResource( 3 )]
+position = Vector2( 316, 86 )
