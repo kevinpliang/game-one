@@ -9,9 +9,10 @@ var canTalk = false
 var cutscene = false
 var boss_mode = false
 
-var dialogue = ["...", ".....", ".......", "my little bro...\nhasn't come back up."]
-var d_speed = [0.8, 0.8, 0.8, 0.4]
+#var dialogue = ["...", ".....", ".......", "my little bro...\nhasn't come back up.", "he's just a kid.."]
+var d_speed = [0.8, 0.8, 0.8, 0.4, 0.4]
 var d_index = 0
+var dialogue = []
 
 func _process(delta):
 	if d_index >= dialogue.size():
@@ -36,11 +37,15 @@ func _input(event):
 
 func startFight():
 	boss_mode = true
-	print("you monster!")
-	animation.queue("get_up")
-	yield(animation, "animation_finished")
-	print("ok")
-	$sound.play()
+	sprite.play("get-up")
+	yield(get_tree().create_timer(2), "timeout")
+	label.text = "YOU MONSTER!!!"
+	label.rect_position.y -= 22
+	animation.play("show_label")
+	sprite.play("attack-intro")
+	yield(get_tree().create_timer(2), "timeout")
+	sprite.play("idle")
+	$sound.play() 
 	$CollisionPolygon2D.queue_free()
 	$interactRange.queue_free()
 	Global.player.stationary = false

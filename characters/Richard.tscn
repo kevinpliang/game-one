@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://world/Richard.gd" type="Script" id=1]
 [ext_resource path="res://characters/sprites/richard/richard-sitting.png" type="Texture" id=2]
@@ -7,34 +7,80 @@
 [ext_resource path="res://characters/sprites/richard/richard-realize.png" type="Texture" id=5]
 [ext_resource path="res://game/sounds/queenA.ogg" type="AudioStream" id=6]
 [ext_resource path="res://characters/sprites/richard/richard-getting-up.png" type="Texture" id=7]
+[ext_resource path="res://characters/sprites/richard/richard-idle.png" type="Texture" id=8]
+[ext_resource path="res://characters/sprites/richard/richard-intro-attack.png" type="Texture" id=9]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 48, 48 )
+region = Rect2( 0, 0, 48, 64 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
+"frames": [ SubResource( 22 ) ],
 "loop": true,
 "name": "default",
 "speed": 1.0
 } ]
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 48, 48 )
+region = Rect2( 0, 0, 48, 64 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 48, 48 )
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 48, 64 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 5 )
-region = Rect2( 48, 0, 48, 48 )
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 48, 64 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 8 )
+region = Rect2( 144, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 8 )
+region = Rect2( 192, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 8 )
+region = Rect2( 240, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 8 )
+region = Rect2( 288, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 8 )
+region = Rect2( 336, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 9 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 9 )
+region = Rect2( 96, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 5 )
-region = Rect2( 96, 0, 48, 48 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 5 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 7 )
@@ -74,12 +120,22 @@ region = Rect2( 384, 0, 48, 64 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 3 ) ],
+"frames": [ SubResource( 21 ) ],
 "loop": true,
 "name": "default",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
+"loop": false,
+"name": "attack-intro",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
 "loop": false,
 "name": "realize",
 "speed": 2.0
@@ -92,11 +148,6 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 29.0172
-
-[sub_resource type="DynamicFont" id=6]
-outline_size = 1
-outline_color = Color( 0, 0, 1, 1 )
-font_data = ExtResource( 4 )
 
 [sub_resource type="Animation" id=20]
 resource_name = "get_up"
@@ -156,6 +207,11 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0, 1.0, 0.0 ]
 }
 
+[sub_resource type="DynamicFont" id=6]
+outline_size = 1
+outline_color = Color( 0, 0, 1, 1 )
+font_data = ExtResource( 4 )
+
 [node name="Richard" type="KinematicBody2D"]
 position = Vector2( 315, 86 )
 scale = Vector2( 1.02072, 1 )
@@ -171,30 +227,15 @@ frames = SubResource( 2 )
 frames = SubResource( 4 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -2.93909, 14 )
 build_mode = 1
 polygon = PoolVector2Array( -8.81729, 0, -0.979706, 0, 4.8985, -3, 1.95941, -9, -4.8985, -9, -10.7767, -2 )
 
 [node name="interactRange" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactRange"]
+position = Vector2( -0.979706, 12 )
 shape = SubResource( 5 )
-
-[node name="Label" type="Label" parent="."]
-margin_left = -26.4519
-margin_top = -33.0
-margin_right = 61.5481
-margin_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 0
-rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = SubResource( 6 )
-custom_constants/shadow_offset_x = 0
-text = "test"
-align = 1
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/get_up = SubResource( 20 )
@@ -203,6 +244,24 @@ anims/show_label = SubResource( 7 )
 [node name="sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -10.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = -33.3098
+margin_top = -19.0
+margin_right = 54.6902
+margin_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = SubResource( 6 )
+custom_constants/shadow_offset_x = 0
+text = "test"
+align = 1
+valign = 2
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="area_entered" from="interactRange" to="." method="_on_interactRange_area_entered"]
 [connection signal="area_exited" from="interactRange" to="." method="_on_interactRange_area_exited"]
