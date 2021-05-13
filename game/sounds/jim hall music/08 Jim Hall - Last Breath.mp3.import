@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/08 Jim Hall - Last Breath.mp3-8a2d5594bc4317058b08d9489666a774.mp3str"
+
+[deps]
+
+source_file="res://game/sounds/jim hall music/08 Jim Hall - Last Breath.mp3"
+dest_files=[ "res://.import/08 Jim Hall - Last Breath.mp3-8a2d5594bc4317058b08d9489666a774.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

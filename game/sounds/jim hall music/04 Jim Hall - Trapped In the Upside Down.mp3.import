@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/04 Jim Hall - Trapped In the Upside Down.mp3-8f2d2e4ce3a1958bfd4de6a49407c338.mp3str"
+
+[deps]
+
+source_file="res://game/sounds/jim hall music/04 Jim Hall - Trapped In the Upside Down.mp3"
+dest_files=[ "res://.import/04 Jim Hall - Trapped In the Upside Down.mp3-8f2d2e4ce3a1958bfd4de6a49407c338.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

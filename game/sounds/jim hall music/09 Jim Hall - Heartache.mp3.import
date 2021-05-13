@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/09 Jim Hall - Heartache.mp3-b4ee89882b48254827c4734f9b8d2e1e.mp3str"
+
+[deps]
+
+source_file="res://game/sounds/jim hall music/09 Jim Hall - Heartache.mp3"
+dest_files=[ "res://.import/09 Jim Hall - Heartache.mp3-b4ee89882b48254827c4734f9b8d2e1e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

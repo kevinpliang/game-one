@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/01 Jim Hall - Devotion.mp3-c6cd17f8b62764b16b3208106bfa1b58.mp3str"
+
+[deps]
+
+source_file="res://game/sounds/jim hall music/01 Jim Hall - Devotion.mp3"
+dest_files=[ "res://.import/01 Jim Hall - Devotion.mp3-c6cd17f8b62764b16b3208106bfa1b58.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

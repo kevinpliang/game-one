@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/06 Jim Hall - Please Stay.mp3-d3d4419023008ce7e0edba25bcf22cbb.mp3str"
+
+[deps]
+
+source_file="res://game/sounds/jim hall music/06 Jim Hall - Please Stay.mp3"
+dest_files=[ "res://.import/06 Jim Hall - Please Stay.mp3-d3d4419023008ce7e0edba25bcf22cbb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

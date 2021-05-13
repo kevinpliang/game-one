@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/10 Jim Hall - Wanderlust.mp3-12a4e95487876ddf52131ee5ee1c4c9f.mp3str"
+
+[deps]
+
+source_file="res://game/sounds/jim hall music/10 Jim Hall - Wanderlust.mp3"
+dest_files=[ "res://.import/10 Jim Hall - Wanderlust.mp3-12a4e95487876ddf52131ee5ee1c4c9f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

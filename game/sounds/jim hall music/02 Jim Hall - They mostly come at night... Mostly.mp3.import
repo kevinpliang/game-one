@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/02 Jim Hall - They mostly come at night... Mostly.mp3-88985571c3116d8d095ab9f5a450a1ee.mp3str"
+
+[deps]
+
+source_file="res://game/sounds/jim hall music/02 Jim Hall - They mostly come at night... Mostly.mp3"
+dest_files=[ "res://.import/02 Jim Hall - They mostly come at night... Mostly.mp3-88985571c3116d8d095ab9f5a450a1ee.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

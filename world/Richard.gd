@@ -45,20 +45,25 @@ func startFight():
 	Global.player.stationary = false
 	sprite.play("get-up")
 	yield(get_tree().create_timer(2), "timeout")
+	$sound.play()
 	label.text = "YOU MONSTER!!!"
 	label.rect_position.y -= 22
+	animation.playback_speed = 2
 	animation.play("show_label")
+	animation.playback_speed = 1
 	Global.player.stationary = false
 	sprite.play("attack-intro")
 	yield(get_tree().create_timer(0.3), "timeout")
 	attack_intro()
-	yield(get_tree().create_timer(1.7), "timeout")
-	sprite.play("idle")
-	$sound.play() 
+	animation.queue("jump_and_land")
+	
+	$CollisionPolygon2D.queue_free()
+	$interactRange.queue_free()
+	
+	attack_clock()
 
 func attack_intro() -> void:
-	#for wave in 3:
-	while !Global.dead:
+	for wave in 1:
 		var dir = global_position.direction_to(Global.player.global_position)
 		var rot = get_angle_to(Global.player.global_position)
 		for i in 4:
@@ -67,9 +72,36 @@ func attack_intro() -> void:
 				var shot = Global.instance_node(freeBullet, global_position, Global.node_creation_parent)
 				shot.rotation = rot+radians
 				shot.speed = 100
-				shot.modulate = Color(0.294118, 0.309804, 1)
 			yield(get_tree().create_timer(0.12), "timeout")
 		yield(get_tree().create_timer(0.8), "timeout")
+
+func attack_clock() -> void:
+	#sprite.play("attack-2")
+	print("attack clock")
+	yield(get_tree().create_timer(2), "timeout")
+	sprite.play("idle")	
+	var numBullets = 50
+	var ringArray = []
+	#$sound.play()
+	for radius in range(0, 150, 10):
+		var step = 2*PI / numBullets	
+		var ring = [numBullets]
+		for i in range(numBullets):
+			var pos = global_position+Vector2(220-radius,0).rotated(step * i)
+			var bullet = Global.instance_node(enemyBullet, pos, Global.node_creation_parent)
+			ring.append(bullet)
+			bullet.freeze = true
+		ringArray.append(ring)
+		yield(get_tree().create_timer( 0.5455), "timeout")
+	
+	# deletes bullets
+#	for i in range(ringArray.size()):
+#		var ring = ringArray.pop_back()
+#		for j in range(numBullets):
+#			var bullet = ring[j]
+#			if bullet != null:
+#				bullet.queue_free()
+
 
 # dialogue range enter
 func _on_interactRange_area_entered(area):

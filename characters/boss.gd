@@ -157,6 +157,7 @@ func attack_two():
 		var bullet = Global.instance_node(enemybullet, pos, Global.node_creation_parent)
 		bulletArray.append(bullet)
 		bullet.freeze = true
+		
 	yield(get_tree().create_timer(1.5), "timeout")
 	for i in range(numBullets):
 		var bullet = bulletArray.pop_back()
