@@ -1,3 +1,3 @@
 # stranded
 
-the second ever strand-type game
+bullet hell adventure
