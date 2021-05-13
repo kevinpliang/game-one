@@ -80,27 +80,29 @@ func attack_clock() -> void:
 	print("attack clock")
 	yield(get_tree().create_timer(2), "timeout")
 	sprite.play("idle")	
-	var numBullets = 50
+	var numBullets = 100
 	var ringArray = []
 	#$sound.play()
-	for radius in range(0, 150, 10):
-		var step = 2*PI / numBullets	
-		var ring = [numBullets]
+	for radius in range(0, 180, 10):
+		var step = 2*PI / numBullets
+		var ring = []
 		for i in range(numBullets):
 			var pos = global_position+Vector2(220-radius,0).rotated(step * i)
 			var bullet = Global.instance_node(enemyBullet, pos, Global.node_creation_parent)
 			ring.append(bullet)
 			bullet.freeze = true
 		ringArray.append(ring)
-		yield(get_tree().create_timer( 0.5455), "timeout")
+		yield(get_tree().create_timer( 0.5), "timeout")
+		numBullets -= 4
 	
 	# deletes bullets
-#	for i in range(ringArray.size()):
-#		var ring = ringArray.pop_back()
-#		for j in range(numBullets):
-#			var bullet = ring[j]
-#			if bullet != null:
-#				bullet.queue_free()
+	for i in range(ringArray.size()):
+		var ring = ringArray.pop_front()
+		for j in range(ring.size()):
+			var bullet = ring[j]
+			if bullet != null:
+				bullet.queue_free()
+		yield(get_tree().create_timer( 0.5), "timeout")
 
 
 # dialogue range enter

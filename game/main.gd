@@ -113,7 +113,7 @@ func loadLevel():
 	var crosshair = ImageTexture.new()
 	if Global.level == 1:
 		Global.instance_node(island, Vector2(0,0), Global.node_creation_parent)
-		crosshair.load("res://objects/sprites/crosshair.png")
+		Input.set_custom_mouse_cursor(load("res://objects/sprites/crosshair.png"))
 		enemies = enemies_1
 	elif Global.level == 1.5:
 		$music.set_volume_db(-10)
@@ -126,9 +126,8 @@ func loadLevel():
 			$music.stream = theme_2
 			$music.play()
 		Global.instance_node(cloud, Vector2(0,0), Global.node_creation_parent)
-		crosshair.load("res://objects/sprites/crosshair-black.png")
+		Input.set_custom_mouse_cursor(load("res://objects/sprites/crosshair-black.png"))
 		enemies = enemies_2
-	Input.set_custom_mouse_cursor(crosshair)
 
 func _on_enemySpawnTimer_timeout():
 	randomize()
